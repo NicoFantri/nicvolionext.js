@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@import './prism.css';
+@tailwind utilities;
+@layer base {
+  :root {
+      --background: 0 0% 100%;
+      --foreground: 240 10% 3.9%;
+      --card: 0 0% 100%;
+      --card-foreground: 240 10% 3.9%;
+      --popover: 0 0% 100%;
+      --popover-foreground: 240 10% 3.9%;
+      --primary: 171 70% 40%;
+      --primary-foreground: 0 0% 100%;
+      --secondary: 240 4.8% 95.9%;
+      --secondary-foreground: 240 5.9% 10%;
+      --muted: 240 4.8% 95.9%;
+      --muted-foreground: 240 3.8% 46.1%;
+      --accent: 240 4.8% 95.9%;
+      --accent-foreground: 240 5.9% 10%;
+      --destructive: 0 84.2% 60.2%;
+      --destructive-foreground: 0 0% 98%;
+      --border: 240 5.9% 90%;
+      --input: 240 5.9% 90%;
+      --ring: 240 5.9% 10%;
+      --radius: 0.75rem;
+      --chart-1: 12 76% 61%;
+      --chart-2: 173 58% 39%;
+      --chart-3: 197 37% 24%;
+      --chart-4: 43 74% 66%;
+      --chart-5: 27 87% 67%;
+  }
+  
+  .dark {
+      /* Base Colors - Keeping original dark theme */
+      --background: 240 10% 5%;        
+      --foreground: 210 20% 98%;       
+      
+      /* Cards & Containers - Keeping original */
+      --card: 240 10% 7%;              
+      --card-foreground: 210 20% 98%;
+      --popover: 240 10% 5%;
+      --popover-foreground: 210 20% 98%;
+      
+      /* Primary Colors - Changed to Red */
+      --primary: 0 75% 45%;           /* Vibrant red */
+      --primary-foreground: 210 20% 98%;
+      
+      /* Secondary & Accent Colors */
+      --secondary: 240 10% 9%;         
+      --secondary-foreground: 210 20% 98%;
+      --accent: 0 75% 45%;            /* Matching red primary */
+      --accent-foreground: 210 20% 98%;
+      
+      /* Muted Elements - Keeping original */
+      --muted: 240 10% 9%;
+      --muted-foreground: 240 5% 65%;  
+      
+      /* Functional Colors */
+      --destructive: 0 75% 50%;        
+      --destructive-foreground: 210 20% 98%;
+      
+      /* UI Elements */
+      --border: 240 10% 12%;           
+      --input: 240 10% 12%;
+      --ring: 0 75% 45%;              /* Ring follows new red primary */
+      
+      /* Chart Colors - Red-based Palette */
+      --chart-1: 0 75% 45%;           /* Primary red */
+      --chart-2: 15 70% 45%;          /* Red-orange */
+      --chart-3: 345 65% 40%;         /* Deep rose */
+      --chart-4: 330 65% 45%;         /* Dark pink */
+      --chart-5: 355 65% 45%;         /* Burgundy */
+  }
+}
+  
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "ss02" 1, "ss03" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Tambahan untuk meningkatkan visual quality */
+@layer utilities {
+  .shadow-soft {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1),
+                0 0 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+}
