@@ -6,7 +6,7 @@ export * from './career';
 export * from './activity';
 
 // personal info
-export const name = 'Nico Fantri ';
+export const name = 'Nico';
 export const headline = 'Informatics Engineering Student, Universitas Muhammadiyah Malang.';
 export const introduction = "I'm Nico, a student from Universitas Muhammadiyah Malang, passionate about technology and software development.";
 export const email = 'nicofantrimayharis@gmail.com';

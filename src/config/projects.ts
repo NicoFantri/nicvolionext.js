@@ -58,6 +58,16 @@ export const projects: Array<ProjectItemType> = [
         category: ['Mobile Development'],
         tags: ['Restaurant', 'Mobile App']
     },
+
+    {
+        name: 'kasir ',
+        description: 'java kasir .',
+        link: { href: '#', label: 'kasir' },
+        logo: 'kasir.jpg',
+        category: ['java'],
+        tags: ['Restaurant', 'java']
+    },
+
 ];
 
 export const githubProjects: Array<ProjectItemType> = [
