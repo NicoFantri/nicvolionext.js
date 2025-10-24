@@ -4,140 +4,16 @@ import { Fragment, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Popover, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 
 import { Container } from '@/components/layout/Container'
 import avatarImage from '@/images/avatar.jpg'
-import { navItems } from '@/config/siteConfig'
 import { ThemeToggle } from '@/components/shared/ThemeToggle'
 import { GithubRepo } from '@/components/shared/GithubRepo'
 import { name } from '@/config/infoConfig'
-import { ChevronDownIcon, XIcon } from 'lucide-react'
+import { FloatingDock } from '@/components/ui/FloatingDock'
 
 import TypingAnimation from "@/components/ui/typing-animation";
-
-function MobileNavItem({
-  href,
-  children,
-}: {
-  href: string
-  children: React.ReactNode
-}) {
-  return (
-    <li>
-      <Popover.Button as={Link} href={href} className="block py-2">
-        {children}
-      </Popover.Button>
-    </li>
-  )
-}
-
-function MobileNavigation(
-  props: React.ComponentPropsWithoutRef<typeof Popover>,
-) {
-  return (
-    <Popover {...props}>
-      <Popover.Button className="group flex items-center rounded-full px-4 py-2 text-sm font-medium shadow-lg ring-1 ring-muted backdrop-blur ">
-        Menu
-        <ChevronDownIcon className="ml-3 h-auto w-2" />
-      </Popover.Button>
-      <Transition.Root>
-        <Transition.Child
-          as={Fragment}
-          enter="duration-150 ease-out"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="duration-150 ease-in"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <Popover.Overlay className="fixed inset-0 z-50 backdrop-blur-sm dark:bg-background/80" />
-        </Transition.Child>
-        <Transition.Child
-          as={Fragment}
-          enter="duration-150 ease-out"
-          enterFrom="opacity-0 scale-95"
-          enterTo="opacity-100 scale-100"
-          leave="duration-150 ease-in"
-          leaveFrom="opacity-100 scale-100"
-          leaveTo="opacity-0 scale-95"
-        >
-          <Popover.Panel
-            focus
-            className="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl p-8 ring-1 ring-muted bg-card"
-          >
-            <div className="flex flex-row-reverse items-center justify-between">
-              <Popover.Button aria-label="Close menu" className="-m-1 p-1">
-                <XIcon className="h-6 w-6 text-muted-foreground" />
-              </Popover.Button>
-              <h2 className="text-sm font-medium text-muted-foreground">
-                {name}
-              </h2>
-            </div>
-            <nav className="mt-6">
-              <ul className="-my-2 divide-y divide-zinc-100 text-base dark:divide-zinc-100/5">
-                {navItems.map((item) => (
-                  <MobileNavItem key={item.name} href={item.href}>{item.name}</MobileNavItem>
-                ))}
-              </ul>
-            </nav>
-          </Popover.Panel>
-        </Transition.Child>
-      </Transition.Root>
-    </Popover>
-  )
-}
-
-function NavItem({
-  href,
-  children,
-}: {
-  href: string
-  children: React.ReactNode
-}) {
-  let isActive = usePathname() === href
-
-  return (
-    <li>
-      <Link
-        href={href}
-        className={clsx(
-          'relative block px-3 py-2 transition',
-          isActive
-            ? 'text-primary'
-            : 'opacity-80 hover:opacity-100 hover:text-primary',
-        )}
-      >
-        {children}
-        {isActive && (
-          <span className="absolute inset-x-1 -bottom-px h-[1.5px] bg-gradient-to-r from-primary/0 via-primary/40 to-primary/0 dark:from-primary/0 dark:via-primary/40 dark:to-primary/0" />
-        )}
-      </Link>
-    </li>
-  )
-}
-
-function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
-  return (
-    <nav {...props}>
-      <ul className="flex rounded-full px-3 text-sm font-medium bg-card ring-1 ring-muted shadow-md backdrop-blur">
-        {navItems.map((item, index) => (
-          <Fragment key={item.name}>
-            {index > 0 && (
-              <li className="flex items-center">
-                <div className="h-4 w-px bg-muted-foreground/30" />
-              </li>
-            )}
-            <NavItem href={item.href}>{item.name}</NavItem>
-          </Fragment>
-        ))}
-      </ul>
-    </nav>
-  )
-}
-
-
 
 function clamp(number: number, a: number, b: number) {
   let min = Math.min(a, b)
@@ -250,16 +126,6 @@ export function Header() {
         setProperty('--header-height', `${scrollY + height}px`)
         setProperty('--header-mb', `${-scrollY}px`)
       }
-
-      // if (top === 0 && scrollY > 0 && scrollY >= downDelay) {
-      //   setProperty('--header-inner-position', 'fixed')
-      //   removeProperty('--header-top')
-      //   removeProperty('--avatar-top')
-      // } else {
-      //   removeProperty('--header-inner-position')
-      //   setProperty('--header-top', '0px')
-      //   setProperty('--avatar-top', '0px')
-      // }
     }
 
     function updateAvatarStyles() {
@@ -292,13 +158,10 @@ export function Header() {
         return
       }
 
-      // 当滚动超过一定距离时，完全隐藏 Hi
       let opacity = window.scrollY < 50 ? 1 : 0
 
       setProperty('--avatar-hi-opacity', opacity.toString())
     }
-
-
 
     function updateStyles() {
       updateHeaderStyles()
@@ -319,6 +182,13 @@ export function Header() {
 
   return (
     <>
+      {/* Floating Dock - Bisa diatur posisi dan ukurannya */}
+      <FloatingDock 
+        topOffset={-20}           // Posisi dari atas dalam pixel (default: 8)
+        iconSize={32}           // Ukuran icon default (default: 28)
+        iconMagnification={48}  // Ukuran icon saat hover (default: 44)
+      />
+
       <header
         className="pointer-events-none relative z-50 flex flex-none flex-col"
         style={{
@@ -404,12 +274,8 @@ export function Header() {
                   </AvatarContainer>
                 )}
               </div>
-              <div className="flex flex-1 justify-end md:justify-center">
-                <MobileNavigation className="pointer-events-auto md:hidden" />
-                <DesktopNavigation className="pointer-events-auto hidden md:block" />
-              </div>
-              <div className="flex justify-end md:flex-1">
-                <div className="pointer-events-auto flex flex-row items-center gap-2 md:mr-2">
+              <div className="flex flex-1 justify-end">
+                <div className="pointer-events-auto flex flex-row items-center gap-2">
                   <ThemeToggle />
                   <GithubRepo />
                 </div>

@@ -1,4 +1,3 @@
-
 import { Container } from '@/components/layout/Container'
 import Newsletter from '@/components/home/Newsletter'
 import Feed from '@/components/home/Feed'
@@ -16,9 +15,6 @@ import GitHubSnake from '@/components/home/GitHubSnake'
 import { CustomIcon } from '@/components/shared/CustomIcon'
 import IconCloud from "@/components/ui/icon-cloud";
 import Activity from '@/components/home/activity'
-
-
-
 
 export default async function Home() {
   let blogList = (await getAllBlogs()).slice(0, 4)
@@ -107,6 +103,8 @@ export default async function Home() {
           <Activity />
         </div>
       </Container>
+      
+      {/* ❌ HAPUS FloatingDock dari sini - sudah ada di Header.tsx */}
     </>
   )
 }

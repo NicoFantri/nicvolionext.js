@@ -61,12 +61,31 @@ export const projects: Array<ProjectItemType> = [
 
     {
         name: 'kasir ',
-        description: 'java kasir .',
+        description: 'java kasir ini dicancang untuk memudahkan karyawan dalam melakukan transaksi',
         link: { href: '#', label: 'kasir' },
         logo: 'kasir.jpg',
         category: ['java'],
         tags: ['Restaurant', 'java']
     },
+
+    {
+        name: 'Aplikasi absensi berbasis mobile ',
+        description: 'aplikasi mobile absensi ini dicancang untuk memudahkan karyawan dalam melakukan absensi.berbasis foto dan lokasi .',
+        link: { href: '#', label: 'Aplikasi absensi' },
+        logo: 'project6.png',
+        category: ['Mobile Development'],
+        tags: ['absensi', 'Mobile App']
+    },
+
+    {
+        name: 'Aplikasi laporan warga ',
+        description: 'aplikasi laporan warga ini dicancang untuk memudahkan warga dalam melakukan laporan.berbasis foto dan lokasi .',
+        link: { href: '#', label: 'Aplikasi laporan warga' },
+        logo: 'project5.png',
+        category: ['Mobile Development'],
+        tags: ['laporan', 'Mobile App']
+    },
+     
 
 ];
 
@@ -111,4 +130,6 @@ export const githubProjects: Array<ProjectItemType> = [
         gitStars: 250,
         gitForks: 90
     },
+
+        
 ];
