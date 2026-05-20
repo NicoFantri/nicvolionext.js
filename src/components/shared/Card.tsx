@@ -29,7 +29,7 @@ Card.Link = function CardLink({
   return (
     <>
       <div className="absolute -inset-x-4 -inset-y-6 z-0 scale-95 transition group-hover:scale-100 sm:-inset-x-6 sm:rounded-2xl group-hover:bg-muted/50 " />
-      <Link {...props}>
+      <Link prefetch={true} {...props}>
         <span className="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
         <span className="relative z-10">{children}</span>
       </Link>

@@ -7,6 +7,7 @@ const CustomLink = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
   if (href?.startsWith('/')) {
     return <Link 
             href={href} 
+            prefetch={true}
             {...props} 
             className='text-primary font-semibold decoration-1 hover:decoration-2 underline underline-offset-2' 
           />

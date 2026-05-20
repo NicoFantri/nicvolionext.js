@@ -29,6 +29,6 @@ export function Button({
   return typeof props.href === 'undefined' ? (
     <button className={className} {...props} />
   ) : (
-    <Link className={className} {...props} />
+    <Link prefetch={true} className={className} {...props} />
   )
 }

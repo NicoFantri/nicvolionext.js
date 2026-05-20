@@ -12,11 +12,13 @@ export type CareerItemType = {
   
   
   export const careerList: Array<CareerItemType> = [
-    {
-      company: 'google',
-      title: 'Software Engineer',
-      logo: 'google',
-      start: 'comingsoon',
-      end: 'comingsoon'
-    },
+    // Tambahkan pengalaman kerja/magang/freelance nyata di sini
+    // Contoh:
+    // {
+    //   company: 'PT Contoh',
+    //   title: 'Intern Software Engineer',
+    //   logo: 'contoh-logo',
+    //   start: '2024',
+    //   end: 'Present'
+    // },
   ]

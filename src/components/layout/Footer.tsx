@@ -18,6 +18,7 @@ function NavLink({
   return (
     <Link
       href={href}
+      prefetch={true}
       className="transition hover:text-primary"
     >
       {children}

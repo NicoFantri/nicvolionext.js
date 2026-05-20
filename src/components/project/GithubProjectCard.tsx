@@ -8,19 +8,23 @@ import Link from 'next/link'
 
 
 export function GithubProjectCard({ project, titleAs }: { project: ProjectItemType, titleAs?: keyof JSX.IntrinsicElements }) {
-  const utmLink = `https://${project.link.href}?utm_source=${utm_source}`
+  const href = project.link.href;
+  const isExternal = href.startsWith('http://') || href.startsWith('https://');
+  const utmLink = isExternal 
+    ? `${href}?utm_source=${utm_source}` 
+    : `https://${href}?utm_source=${utm_source}`;
   let Component = titleAs ?? 'h2'
   return (
     <li className='group relative flex flex-col items-start h-full'>
-      <div className="relative flex flex-col justify-between h-full w-full py-5  px-6 rounded-2xl border border-muted-foreground/20 shadow-sm transition-all group-hover:scale-[1.03] group-hover:shadow-md group-hover:bg-muted/5">
-        <div className=''>
-          <div className='flex flex-col sm:flex-row justify-center sm:justify-start items-start sm:items-center gap-2'>
-            <BookOpen size={20} weight="duotone" />
-            <Component className="text-sm font-semibold tracking-tight">
+      <div className="relative flex flex-col h-full w-full p-6 rounded-3xl border border-muted bg-background/50 backdrop-blur-sm shadow-sm transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-xl group-hover:bg-muted/10 group-hover:border-red-700/30">
+        <div className='flex-1'>
+          <div className='flex flex-col sm:flex-row justify-center sm:justify-start items-start sm:items-center gap-3'>
+            <BookOpen size={24} weight="duotone" className="text-red-700" />
+            <Component className="text-lg font-bold tracking-tight text-foreground group-hover:text-red-700 transition-colors">
               {project.name}
             </Component>
           </div>
-          <p className="relative z-10 mt-2 text-sm text-muted-foreground">
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground line-clamp-3">
             {project.description}
           </p>
         </div>

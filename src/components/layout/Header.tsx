@@ -5,6 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
+import { GithubIcon, MailIcon, LinkedinIcon } from 'lucide-react'
+import { SealCheck } from '@phosphor-icons/react'
 
 import { Container } from '@/components/layout/Container'
 import avatarImage from '@/images/avatar.jpg'
@@ -41,9 +43,13 @@ function AvatarContainer({
         <Link
           href="/"
           aria-label="Home"
+          prefetch={true}
           className='pointer-events-auto'
         >
-          <div className="text-md font-semibold capitalize">{name}</div>
+          <div className="text-md font-semibold capitalize flex items-center gap-1">
+            {name}
+            <SealCheck weight="fill" className="w-[16px] h-[16px] text-blue-500" />
+          </div>
         </Link>
       )}
     </div>
@@ -61,6 +67,7 @@ function Avatar({
     <Link
       href="/"
       aria-label="Home"
+      prefetch={true}
       className={clsx(className, 'pointer-events-auto')}
       {...props}
     >
@@ -190,7 +197,7 @@ export function Header() {
       />
 
       <header
-        className="pointer-events-none relative z-50 flex flex-none flex-col"
+        className="pointer-events-none relative z-50 flex flex-none flex-col lg:hidden"
         style={{
           height: 'var(--header-height)',
           marginBottom: 'var(--header-mb)',
@@ -224,26 +231,36 @@ export function Header() {
                       transform: 'var(--avatar-border-transform)',
                     }}
                   />
-                  <div className="flex flex-row items-center gap-4">
-                    <Avatar
-                      large
-                      className="block h-16 w-16 origin-left"
-                      style={{ transform: 'var(--avatar-image-transform)' }}
-                    />
-                    <div
-                      className="text-3xl md:text-6xl font-bold tracking-tight flex flex-row"
-                      style={{
-                        opacity: 'var(--avatar-hi-opacity, 0)',
-                        transform: 'var(--avatar-hi-transform)'
-                      }}
-                    >
-                      Hi,{' '}
-                      <TypingAnimation
-                        className="text-3xl md:text-6xl font-bold tracking-tight"
-                        text={`I'm ${name} `}
-                        duration={150}
+                  <div className="flex flex-col gap-4">
+                    <div className="flex flex-row items-center gap-4">
+                      <Avatar
+                        large
+                        className="block h-16 w-16 origin-left"
+                        style={{ transform: 'var(--avatar-image-transform)' }}
                       />
-                      👋
+                      <div className="flex flex-col">
+                        <div
+                          className="text-3xl md:text-6xl font-bold tracking-tight flex flex-row"
+                          style={{
+                            opacity: 'var(--avatar-hi-opacity, 0)',
+                            transform: 'var(--avatar-hi-transform)'
+                          }}
+                        >
+                          Hi,{' '}
+                          <TypingAnimation
+                            className="text-3xl md:text-6xl font-bold tracking-tight"
+                            text={`I'm ${name} `}
+                            duration={150}
+                          />
+                          👋
+                        </div>
+                        <p className="text-sm text-muted-foreground font-medium flex items-center gap-1 mt-1"
+                          style={{ opacity: 'var(--avatar-hi-opacity, 0)' }}
+                        >
+                          @nicofantri
+                          <SealCheck weight="fill" className="w-[16px] h-[16px] text-blue-500" />
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -275,9 +292,33 @@ export function Header() {
                 )}
               </div>
               <div className="flex flex-1 justify-end">
-                <div className="pointer-events-auto flex flex-row items-center gap-2">
+                <div className="pointer-events-auto flex flex-row items-center gap-1">
+                  <Link
+                    href="https://github.com/nicofantri"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                    className="p-2 rounded-lg text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <GithubIcon className="size-5" />
+                  </Link>
+                  <Link
+                    href="mailto:nicofantrimayharis@gmail.com"
+                    aria-label="Email"
+                    className="p-2 rounded-lg text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <MailIcon className="size-5" />
+                  </Link>
+                  <Link
+                    href="https://linkedin.com/in/nicofantrim06"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    className="p-2 rounded-lg text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <LinkedinIcon className="size-5" />
+                  </Link>
                   <ThemeToggle />
-                  <GithubRepo />
                 </div>
               </div>
             </div>

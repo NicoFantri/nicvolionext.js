@@ -43,9 +43,13 @@ export default function Career() {
         <span className="ml-3">Work</span>
       </h2>
       <ol className="mt-6 space-y-4">
-        {careerList.map((careerItem, careerItemIndex) => (
-          <CareerItem key={careerItemIndex} careerItem={careerItem} />
-        ))}
+        {careerList.length > 0 ? (
+          careerList.map((careerItem, careerItemIndex) => (
+            <CareerItem key={careerItemIndex} careerItem={careerItem} />
+          ))
+        ) : (
+          <li className="text-sm text-muted-foreground italic">Coming soon...</li>
+        )}
       </ol>
     </div>
   )

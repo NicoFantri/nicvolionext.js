@@ -51,7 +51,7 @@ const SOCIAL_DATA = {
 
   Email: {
     name: "Send Email",
-    url: "mailto:your.email@example.com",
+    url: "mailto:nicofantrimayharis@gmail.com",
     icon: Icons.email,
   },
 }
@@ -71,9 +71,9 @@ export function FloatingDock({
 
   return (
     <>
-      {/* Desktop Version - Top, Non-sticky */}
+      {/* Desktop Version - Hidden since we use Sidebar */}
       <div 
-        className="hidden md:block absolute left-1/2 -translate-x-1/2 z-[100]"
+        className="hidden absolute left-1/2 -translate-x-1/2 z-[100]"
         style={{ top: `${topOffset}px` }}
       >
         <TooltipProvider>
@@ -92,6 +92,7 @@ export function FloatingDock({
                     <TooltipTrigger asChild>
                       <Link
                         href={item.href}
+                        prefetch={true}
                         aria-label={item.name}
                         className={cn(
                           buttonVariants({ variant: "ghost", size: "icon" }),
@@ -148,6 +149,7 @@ export function FloatingDock({
               <Link
                 key={item.name}
                 href={item.href}
+                prefetch={true}
                 className={cn(
                   "flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-all",
                   isActive 
