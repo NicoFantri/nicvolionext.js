@@ -1,7 +1,5 @@
 import { Container } from '@/components/layout/Container'
-import { headline, introduction, projectHeadLine, projectIntro, projects, githubProjects, blogHeadLine, techIcons, name } from '@/config/infoConfig'
-import { BlogCard } from '@/components/home/BlogCard'
-import { getAllBlogs, type BlogType } from '@/lib/blogs'
+import { headline, introduction, projectHeadLine, projectIntro, projects, githubProjects, techIcons, name } from '@/config/infoConfig'
 import { ProjectCard } from '@/components/project/ProjectCard'
 import { GithubProjectCard } from '@/components/project/GithubProjectCard'
 import GitHubSnake from '@/components/home/GitHubSnake'
@@ -12,7 +10,6 @@ import { ArrowRight } from '@phosphor-icons/react/dist/ssr'
 import TypingAnimation from "@/components/ui/typing-animation"
 
 export default async function Home() {
-  let blogList = (await getAllBlogs()).slice(0, 4)
 
   return (
     <>

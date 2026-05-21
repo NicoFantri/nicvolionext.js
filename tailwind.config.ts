@@ -178,6 +178,23 @@ export default {
           '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
           '100%': { transform: 'translate(0px, 0px) scale(1)' },
         },
+        'music-bar-1': {
+          '0%, 100%': { height: '4px' },
+          '50%': { height: '16px' },
+        },
+        'music-bar-2': {
+          '0%, 100%': { height: '12px' },
+          '50%': { height: '4px' },
+        },
+        'music-bar-3': {
+          '0%, 100%': { height: '8px' },
+          '25%': { height: '18px' },
+          '75%': { height: '4px' },
+        },
+        'music-bar-4': {
+          '0%, 100%': { height: '14px' },
+          '50%': { height: '6px' },
+        },
   		},
   		animation: {
   			marquee: 'marquee var(--duration) infinite linear',
@@ -185,6 +202,10 @@ export default {
         wave: 'wave 2.5s infinite',
         meteor: 'meteor 5s linear infinite',
         blob: 'blob 7s infinite',
+        'music-bar-1': 'music-bar-1 0.8s ease-in-out infinite',
+        'music-bar-2': 'music-bar-2 0.6s ease-in-out infinite 0.1s',
+        'music-bar-3': 'music-bar-3 0.9s ease-in-out infinite 0.2s',
+        'music-bar-4': 'music-bar-4 0.7s ease-in-out infinite 0.05s',
   		}
   	}
   },

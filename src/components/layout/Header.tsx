@@ -12,6 +12,7 @@ import { Container } from '@/components/layout/Container'
 import avatarImage from '@/images/avatar.jpg'
 import { ThemeToggle } from '@/components/shared/ThemeToggle'
 import { GithubRepo } from '@/components/shared/GithubRepo'
+import { MusicPlayer } from '@/components/shared/MusicPlayer'
 import { name } from '@/config/infoConfig'
 import { FloatingDock } from '@/components/ui/FloatingDock'
 
@@ -293,6 +294,7 @@ export function Header() {
               </div>
               <div className="flex flex-1 justify-end">
                 <div className="pointer-events-auto flex flex-row items-center gap-1">
+                  <MusicPlayer />
                   <Link
                     href="https://github.com/nicofantri"
                     target="_blank"

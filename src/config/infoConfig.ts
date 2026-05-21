@@ -20,9 +20,9 @@ export const aboutParagraphs = [
   "Currently, I am focusing on improving my skills in software development and frequently working on side projects to gain experience."
 ];
 
-// blog
-export const blogHeadLine = "Things I've been thinking about.";
-export const blogIntro = "I've written a few things about technology, software development, and life.";
+// experience
+export const experienceHeadLine = "Riwayat Studi & Pengalaman.";
+export const experienceIntro = "Perjalanan pendidikan dan pengalaman dalam membangun berbagai project.";
 
 // social links
 export type SocialLinkType = {

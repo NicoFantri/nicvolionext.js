@@ -1,10 +1,12 @@
 import Link from 'next/link'
 import { GithubIcon, LinkedinIcon, MailIcon } from 'lucide-react'
 import { email } from '@/config/infoConfig'
+import { MusicPlayer } from '@/components/shared/MusicPlayer'
 
 export function SocialIcons() {
   return (
     <div className="hidden lg:flex fixed top-6 right-6 z-50 items-center gap-1">
+      <MusicPlayer />
       <Link
         href="https://github.com/nicofantri"
         target="_blank"

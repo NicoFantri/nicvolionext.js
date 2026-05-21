@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
-import { HomeIcon, FolderIcon, PencilIcon, UserIcon, MailIcon, GithubIcon, LinkedinIcon, TwitterIcon, BadgeCheck } from "lucide-react"
+import { HomeIcon, FolderIcon, PencilIcon, UserIcon, MailIcon, GithubIcon, LinkedinIcon, TwitterIcon, BadgeCheck, BriefcaseIcon, SettingsIcon } from "lucide-react"
 import { SealCheck } from '@phosphor-icons/react'
 
 import avatarImage from '@/images/avatar.jpg'
@@ -16,9 +16,10 @@ const iconMap: Record<string, any> = {
   "Home": HomeIcon,
   "About": UserIcon,
   "Projects": FolderIcon,
-  "Blogs": PencilIcon,
+  "Experience": BriefcaseIcon,
   "Friends": UserIcon,
-  "Changelog": PencilIcon,
+  "Certificates": BadgeCheck,
+  "Pengaturan": SettingsIcon,
 }
 
 export function Sidebar() {
@@ -27,7 +28,7 @@ export function Sidebar() {
   const navLinks = footerItems;
 
   return (
-    <aside className="hidden lg:flex w-64 flex-col h-full border-r border-muted/50 bg-background/80 backdrop-blur-xl px-6 py-8 overflow-y-auto z-50 flex-shrink-0">
+    <aside className="hidden lg:flex w-64 flex-col h-full border-r border-muted/50 bg-background/80 backdrop-blur-xl px-6 py-8 overflow-y-auto z-50 flex-shrink-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
       <div className="flex flex-col items-start gap-5">
         <div className="relative group cursor-pointer">
           <Image
