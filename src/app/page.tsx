@@ -62,7 +62,8 @@ export default function Home() {
               </div>
               
               <a 
-                href="/cv.pdf" 
+                href="/CV_Nico_Fantri_Mayharis.pdf" 
+                download="CV_Nico_Fantri_Mayharis.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-red-800 text-white px-8 py-3.5 text-sm font-semibold hover:bg-red-900 transition-colors"
