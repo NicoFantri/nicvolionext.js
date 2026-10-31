@@ -6,15 +6,15 @@ export * from './activity';
 
 // personal info
 export const name = 'Nico';
-export const headline = 'Informatics Engineering Student at Universitas Muhammadiyah Malang.';
+export const headline = 'Informatics Engineering Graduate from Universitas Muhammadiyah Malang.';
 export const introduction = "I'm a passionate software developer, highly enthusiastic about modern web technologies and building impactful digital solutions.";
 export const email = 'nicofantrimayharis@gmail.com';
 export const githubUsername = 'nicofantri';
 
 // about page
-export const aboutMeHeadline = "I'm Nico Fantri M, an Informatics Engineering student at Universitas Muhammadiyah Malang.";
+export const aboutMeHeadline = "I'm Nico Fantri M, an Informatics Engineering Graduate from Universitas Muhammadiyah Malang.";
 export const aboutParagraphs = [
-  "I am passionate about programming and technology. I started learning programming when I joined the Informatics Engineering department.",
+  "I am passionate about programming and technology. I graduated with a degree in Informatics Engineering, building strong foundations in software engineering.",
   "Besides studying, I also have many hobbies such as traveling, photography, watching movies, listening to music, and more.",
   "Currently, I am focusing on improving my skills in software development and frequently working on side projects to gain experience."
 ];

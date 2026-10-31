@@ -44,11 +44,11 @@ export default function Home() {
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground font-medium mb-6">
                 <span className="flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 rounded-full bg-red-800"></span>
-                  Based in Malang, Indonesia 🇮🇩
+                  Based in Sidoarjo, Indonesia 🇮🇩
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 rounded-full bg-red-800"></span>
-                  Student at UMM
+                  Informatics Graduate from UMM
                 </span>
               </div>
 

@@ -30,7 +30,7 @@ export default function About() {
                 Hi, I'm Nico Fantri. I am a passionate <strong className="text-zinc-200 font-semibold">Software Engineer</strong> and <strong className="text-zinc-200 font-semibold">Fullstack Developer</strong>, constantly pushing the boundaries of what's possible in digital experiences.
               </p>
               <p>
-                As an Informatics Engineering student at Universitas Muhammadiyah Malang, I've evolved into a dedicated developer. My absolute favorite frameworks to build with are <strong className="text-zinc-200 font-semibold">Flutter</strong> and <strong className="text-zinc-200 font-semibold">Laravel</strong>.
+                As an Informatics Engineering graduate from Universitas Muhammadiyah Malang, I've evolved into a dedicated developer. My absolute favorite frameworks to build with are <strong className="text-zinc-200 font-semibold">Flutter</strong> and <strong className="text-zinc-200 font-semibold">Laravel</strong>.
               </p>
             </div>
             
