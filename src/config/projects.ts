@@ -22,6 +22,38 @@ export type ProjectItemType = {
 export const projects: Array<ProjectItemType> = [
     // Video Showcase Projects
     {
+        name: 'Aplikasi Laporan Warga (Flutter)',
+        description: 'Aplikasi mobile berbasis Flutter untuk pelaporan keluhan warga secara cepat, dilengkapi pelacakan status laporan dan penanganan aduan masyarakat.',
+        link: { href: '#', label: 'Laporan Warga' },
+        logo: '/vidioproject/WhatsApp Video 2026-10-31 at 20.28.48.mp4',
+        category: ['Mobile Development', 'Flutter', 'Showcase'],
+        tags: ['Flutter', 'Mobile App', 'Laporan Warga']
+    },
+    {
+        name: 'Aplikasi Kasir Offline (Flutter Mobile)',
+        description: 'Aplikasi Point of Sale (POS) mobile berbasis Flutter yang dapat dijalankan secara offline untuk transaksi cepat dan manajemen produk.',
+        link: { href: '#', label: 'Kasir Offline' },
+        logo: '/vidioproject/WhatsApp Video 2026-10-31 at 20.28.48 (1).mp4',
+        category: ['Mobile Development', 'Flutter', 'Showcase'],
+        tags: ['Flutter', 'Mobile App', 'POS / Kasir Offline']
+    },
+    {
+        name: 'Target TabunganKu',
+        description: 'Aplikasi mobile untuk perencanaan dan pencatatan target tabungan finansial.',
+        link: { href: '#', label: 'Target TabunganKu' },
+        logo: '/vidioproject/1022 (1)(1).mp4',
+        category: ['Mobile Development', 'Showcase'],
+        tags: ['Mobile App', 'Flutter / Android']
+    },
+    {
+        name: 'Web Admin Dashboard dan Kasir POS',
+        description: 'Dashboard manajemen web modern dengan visualisasi data dan analitik real-time serta POS dengan UI modern.',
+        link: { href: '#', label: 'Web Dashboard' },
+        logo: '/vidioproject/1031 (1).mp4',
+        category: ['Web Development', 'Showcase'],
+        tags: ['Web App', 'Dashboard']
+    },
+    {
         name: 'Project Showcase 1',
         description: 'Interactive demo of my recent applications and workflows.',
         link: { href: '#', label: 'Project Showcase' },

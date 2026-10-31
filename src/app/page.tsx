@@ -158,7 +158,7 @@ export default function Home() {
                 WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)' 
               }}
             >
-              <Carousel slides={projects.filter((p: any) => p.logo?.toLowerCase().endsWith('.mp4')).slice(0, 10).map((project: any) => {
+              <Carousel slides={projects.filter((p: any) => p.logo?.toLowerCase().endsWith('.mp4')).slice(0, 20).map((project: any) => {
                 let imageSrc = project.images && project.images.length > 0 ? project.images[0] : project.logo;
                 if (imageSrc && !imageSrc.startsWith('http') && !imageSrc.startsWith('/')) {
                   imageSrc = `/images/${imageSrc}`;
