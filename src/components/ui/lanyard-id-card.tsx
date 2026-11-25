@@ -16,19 +16,19 @@ export function LanyardIDCard() {
 
   const x = useMotionValue(0)
   const y = useMotionValue(0)
-  const rotate = useTransform(x, [-70, 0, 70], [14, 0, -14])
+  const rotate = useTransform(x, [-120, 0, 120], [16, 0, -16])
 
   // Natural collar wrap anchors (400 x 500 SVG space)
-  const LEFT_ANCHOR_X = 149
-  const RIGHT_ANCHOR_X = 251
-  const ANCHOR_Y = 228
+  const LEFT_ANCHOR_X = 148
+  const RIGHT_ANCHOR_X = 252
+  const ANCHOR_Y = 214
   const REST_CLIP_X = 200
   const REST_CLIP_Y = 334
 
   const buildPaths = (cx: number, cy: number) => {
     const dx = cx - REST_CLIP_X
-    const leftPath = `M ${LEFT_ANCHOR_X} ${ANCHOR_Y} C 143 262, ${168 + dx * 0.4} ${300 + (cy - REST_CLIP_Y) * 0.4}, ${cx} ${cy}`
-    const rightPath = `M ${RIGHT_ANCHOR_X} ${ANCHOR_Y} C 257 262, ${232 + dx * 0.4} ${300 + (cy - REST_CLIP_Y) * 0.4}, ${cx} ${cy}`
+    const leftPath = `M ${LEFT_ANCHOR_X} ${ANCHOR_Y} C 142 256, ${168 + dx * 0.45} ${298 + (cy - REST_CLIP_Y) * 0.45}, ${cx} ${cy}`
+    const rightPath = `M ${RIGHT_ANCHOR_X} ${ANCHOR_Y} C 258 256, ${232 + dx * 0.45} ${298 + (cy - REST_CLIP_Y) * 0.45}, ${cx} ${cy}`
     return { leftPath, rightPath }
   }
 
@@ -72,8 +72,8 @@ export function LanyardIDCard() {
         viewBox="0 0 400 500"
         className="absolute inset-0 w-full h-full pointer-events-none overflow-visible"
         style={{
-          maskImage: "linear-gradient(to bottom, transparent 45%, black 49%)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 45%, black 49%)",
+          maskImage: "linear-gradient(to bottom, transparent 42%, black 47%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 42%, black 47%)",
         }}
         aria-hidden="true"
       >
@@ -119,10 +119,10 @@ export function LanyardIDCard() {
         <motion.div
           style={{ x, y, rotate }}
           drag
-          dragConstraints={{ left: -30, right: 30, top: -8, bottom: 14 }}
-          dragElastic={0.16}
+          dragConstraints={{ left: -85, right: 85, top: -20, bottom: 55 }}
+          dragElastic={0.35}
           dragSnapToOrigin
-          dragTransition={{ bounceStiffness: 290, bounceDamping: 16 }}
+          dragTransition={{ bounceStiffness: 260, bounceDamping: 15 }}
           whileHover={{ scale: 1.06 }}
           whileTap={{ scale: 0.94 }}
           onPointerDown={(e) => {
