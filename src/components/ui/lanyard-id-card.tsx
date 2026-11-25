@@ -20,18 +20,18 @@ export function LanyardIDCard() {
   const y = useMotionValue(0)
   const rotate = useTransform(x, [-120, 0, 120], [16, 0, -16])
 
-  // Snug collar-hugging anchors (400 x 500 SVG space) down to lower suit cutoff
-  const LEFT_ANCHOR_X = 161
-  const RIGHT_ANCHOR_X = 239
-  const ANCHOR_Y = 226
+  // Outer collar/lapel seam anchors matching the red markup (400 x 500 SVG space)
+  const LEFT_ANCHOR_X = 148
+  const RIGHT_ANCHOR_X = 252
+  const ANCHOR_Y = 232
   const REST_CLIP_X = 200
-  const REST_CLIP_Y = 368
+  const REST_CLIP_Y = 354
 
   const buildPaths = (cx: number, cy: number) => {
     const dx = cx - REST_CLIP_X
     const dy = cy - REST_CLIP_Y
-    const leftPath = `M ${LEFT_ANCHOR_X} ${ANCHOR_Y} C 164 274, ${182 + dx * 0.45} ${328 + dy * 0.45}, ${cx} ${cy}`
-    const rightPath = `M ${RIGHT_ANCHOR_X} ${ANCHOR_Y} C 236 274, ${218 + dx * 0.45} ${328 + dy * 0.45}, ${cx} ${cy}`
+    const leftPath = `M ${LEFT_ANCHOR_X} ${ANCHOR_Y} C 143 268, ${162 + dx * 0.45} ${316 + dy * 0.45}, ${cx} ${cy}`
+    const rightPath = `M ${RIGHT_ANCHOR_X} ${ANCHOR_Y} C 257 268, ${238 + dx * 0.45} ${316 + dy * 0.45}, ${cx} ${cy}`
     return { leftPath, rightPath }
   }
 
@@ -77,8 +77,8 @@ export function LanyardIDCard() {
         viewBox="0 0 400 500"
         className="absolute inset-0 w-full h-full pointer-events-none overflow-visible"
         style={{
-          maskImage: "linear-gradient(to bottom, transparent 44%, black 48%)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 44%, black 48%)",
+          maskImage: "linear-gradient(to bottom, transparent 45.5%, black 49%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 45.5%, black 49%)",
         }}
         aria-hidden="true"
       >
@@ -139,8 +139,8 @@ export function LanyardIDCard() {
         />
       </svg>
 
-      {/* Miniature Interactive ID Card aligned neatly down near suit bottom edge */}
-      <div className="absolute left-1/2 top-[73.5%] -translate-x-1/2 pointer-events-none">
+      {/* Miniature Interactive ID Card aligned so bottom edge sits flush at suit cutoff */}
+      <div className="absolute left-1/2 top-[70.5%] -translate-x-1/2 pointer-events-none">
         <motion.div
           style={{ x, y, rotate }}
           drag
