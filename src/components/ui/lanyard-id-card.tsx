@@ -25,13 +25,13 @@ export function LanyardIDCard() {
   const RIGHT_ANCHOR_X = 252
   const ANCHOR_Y = 232
   const REST_CLIP_X = 200
-  const REST_CLIP_Y = 354
+  const REST_CLIP_Y = 394
 
   const buildPaths = (cx: number, cy: number) => {
     const dx = cx - REST_CLIP_X
     const dy = cy - REST_CLIP_Y
-    const leftPath = `M ${LEFT_ANCHOR_X} ${ANCHOR_Y} C 143 268, ${162 + dx * 0.45} ${316 + dy * 0.45}, ${cx} ${cy}`
-    const rightPath = `M ${RIGHT_ANCHOR_X} ${ANCHOR_Y} C 257 268, ${238 + dx * 0.45} ${316 + dy * 0.45}, ${cx} ${cy}`
+    const leftPath = `M ${LEFT_ANCHOR_X} ${ANCHOR_Y} C 143 280, ${168 + dx * 0.45} ${342 + dy * 0.45}, ${cx} ${cy}`
+    const rightPath = `M ${RIGHT_ANCHOR_X} ${ANCHOR_Y} C 257 280, ${232 + dx * 0.45} ${342 + dy * 0.45}, ${cx} ${cy}`
     return { leftPath, rightPath }
   }
 
@@ -139,8 +139,8 @@ export function LanyardIDCard() {
         />
       </svg>
 
-      {/* Miniature Interactive ID Card aligned so bottom edge sits flush at suit cutoff */}
-      <div className="absolute left-1/2 top-[70.5%] -translate-x-1/2 pointer-events-none">
+      {/* Miniature Interactive ID Card positioned all the way down at the very bottom */}
+      <div className="absolute left-1/2 top-[78.5%] -translate-x-1/2 pointer-events-none">
         <motion.div
           style={{ x, y, rotate }}
           drag
