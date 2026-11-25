@@ -4,8 +4,8 @@
 @tailwind utilities;
 @layer base {
   :root {
-      /* Clean Minimalist Light Theme (Soft Neutral Backdrop, Pure White Cards, 60fps) */
-      --background: 220 14% 94%; /* Soft cool light slate (not blinding white) */
+      /* Clean Crisp Light Theme */
+      --background: 0 0% 99%; /* Clean bright white */
       --foreground: 240 10% 8%; /* Deep crisp charcoal */
       
       --card: 0 0% 100%; /* Pure white cards */

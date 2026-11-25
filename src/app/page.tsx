@@ -11,6 +11,7 @@ import TypingAnimation from "@/components/ui/typing-animation"
 import { FadeIn } from "@/components/ui/fade-in"
 import Carousel from "@/components/ui/carousel"
 import { XRayReveal } from "@/components/ui/xray-reveal"
+import { LanyardIDCard } from "@/components/ui/lanyard-id-card"
 
 export default function Home() {
   const name = defaultName
@@ -72,15 +73,18 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Image Right (X-Ray) */}
-            <div className="w-full max-w-sm mx-auto lg:ml-auto lg:mr-8 relative order-2 lg:order-2 mt-8 lg:mt-0">
-              <XRayReveal 
-                baseImage="/images/fotoA.png" 
-                revealImage="/images/fotoB.png" 
-                radius={120}
-                enable3D={true}
-                className="w-full rounded-none aspect-[4/5]"
-              />
+            {/* Image Right (X-Ray + Interactive Lanyard ID Card) */}
+            <div className="w-full max-w-sm mx-auto lg:ml-auto lg:mr-8 relative order-2 lg:order-2 mt-8 lg:mt-0 mb-8 sm:mb-4">
+              <div className="relative w-full aspect-[4/5]">
+                <XRayReveal 
+                  baseImage="/images/fotoA.png" 
+                  revealImage="/images/fotoB.png" 
+                  radius={120}
+                  enable3D={true}
+                  className="w-full rounded-none aspect-[4/5]"
+                />
+                <LanyardIDCard />
+              </div>
             </div>
             
           </section>
