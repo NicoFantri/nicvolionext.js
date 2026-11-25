@@ -73,8 +73,6 @@ const Slide = ({
         className="group flex flex-1 flex-col items-center justify-center relative text-center text-white w-[72vw] sm:w-[315px] h-[128vw] sm:h-[560px] mx-[4vmin] sm:mx-[20px] z-10 will-change-transform"
         onClick={() => handleSlideClick(index)}
         style={{
-          transform: current === index ? "scale3d(1, 1, 1)" : "scale3d(0.86, 0.86, 1)",
-          opacity: current === index ? 1 : 0.45,
           transformOrigin: "center",
         }}
       >
@@ -300,7 +298,7 @@ export default function Carousel({ slides }: CarouselProps) {
         if (!li) continue;
         const dist = Math.min(Math.abs(pos - i), 1);
         const scale = 1 - 0.14 * dist;
-        const opacity = 1 - 0.55 * dist;
+        const opacity = 1 - 0.12 * dist;
         li.style.transform = `scale3d(${scale}, ${scale}, 1)`;
         li.style.opacity = `${opacity}`;
       }
@@ -310,6 +308,8 @@ export default function Carousel({ slides }: CarouselProps) {
         setCurrent(rounded);
       }
     };
+
+    applyDOMTransform(posRef.current);
 
     const tick = (now: number) => {
       if (lastTimeRef.current === null) {

@@ -79,7 +79,7 @@ export default function Home() {
                 revealImage="/images/fotoB.png" 
                 radius={120}
                 enable3D={true}
-                className="w-full aspect-[4/5] rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-md dark:shadow-none"
+                className="w-full rounded-none aspect-[4/5]"
               />
             </div>
             
@@ -148,13 +148,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <div 
-              className="relative overflow-hidden w-full h-full pt-10 pb-24"
-              style={{ 
-                maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)', 
-                WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)' 
-              }}
-            >
+            <div className="relative overflow-hidden w-full h-full pt-10 pb-24">
               <Carousel slides={projects.filter((p: any) => p.logo?.toLowerCase().endsWith('.mp4')).slice(0, 20).map((project: any) => {
                 let imageSrc = project.images && project.images.length > 0 ? project.images[0] : project.logo;
                 if (imageSrc && !imageSrc.startsWith('http') && !imageSrc.startsWith('/')) {

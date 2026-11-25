@@ -36,6 +36,7 @@ export function GlyphMatrix({
   ...props
 }: GlyphMatrixProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const drawRef = useRef<(() => void) | null>(null)
   // Current glyph color as RGBA (a in 0-1). Kept in a ref so a color change
   // (e.g. theme toggle) recolors the next frame without restarting the
   // animation. Defaults to #6B7280.
@@ -48,14 +49,12 @@ export function GlyphMatrix({
     probe.height = 1
     const probeCtx = probe.getContext("2d")
     if (!probeCtx) return
-    // Seed with the default so an invalid color falls back to it: the 2d
-    // context keeps the previous fillStyle when assigned an invalid value
-    // instead of silently turning black.
     probeCtx.fillStyle = "#6B7280"
     probeCtx.fillStyle = color
     probeCtx.fillRect(0, 0, 1, 1)
     const [r, g, b, a] = probeCtx.getImageData(0, 0, 1, 1).data
     rgbaRef.current = { r, g, b, a: a / 255 }
+    drawRef.current?.()
   }, [color])
 
   useEffect(() => {
@@ -74,7 +73,7 @@ export function GlyphMatrix({
     let stopped = false
 
     const resize = () => {
-      const dpr = window.devicePixelRatio || 1
+      const dpr = Math.min(window.devicePixelRatio || 1, 1)
       const { clientWidth: w, clientHeight: h } = canvas
 
       canvas.width = w * dpr
@@ -89,32 +88,40 @@ export function GlyphMatrix({
         .map(() => glyphs[Math.floor(Math.random() * glyphs.length)])
       alphas = new Array(cols * rows)
         .fill(0)
-        .map(() => 0.05 + Math.random() * 0.35)
+        .map(() => 0.1 + Math.random() * 0.45)
     }
 
     const draw = () => {
       const { clientWidth: w, clientHeight: h } = canvas
       ctx.clearRect(0, 0, w, h)
 
-      ctx.font = `${cellSize - 2}px ui-monospace, SFMono-Regular, Menlo, monospace`
+      ctx.font = `${cellSize - 3}px ui-monospace, SFMono-Regular, Menlo, monospace`
       ctx.textBaseline = "top"
 
       const { r, g, b, a: colorAlpha } = rgbaRef.current
+      let lastFill = ""
       for (let y = 0; y < rows; y++) {
         const fade = fadeBottom > 0 ? 1 - (y / rows) * fadeBottom : 1
         for (let x = 0; x < cols; x++) {
           const i = y * cols + x
-          const a = alphas[i] * fade * colorAlpha
-          ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a})`
+          const a = Math.round(alphas[i] * fade * colorAlpha * 10) / 10
+          if (a <= 0) continue
+          const fill = `rgba(${r},${g},${b},${a})`
+          if (fill !== lastFill) {
+            ctx.fillStyle = fill
+            lastFill = fill
+          }
           ctx.fillText(cells[i], x * cellSize, y * cellSize)
         }
       }
     }
 
+    drawRef.current = draw
+
     const tick = (t: number) => {
       if (stopped) return
 
-      if (t - last >= interval) {
+      if (!document.hidden && t - last >= interval) {
         last = t
 
         const total = cols * rows
@@ -123,7 +130,7 @@ export function GlyphMatrix({
         for (let n = 0; n < mutations; n++) {
           const i = Math.floor(Math.random() * total)
           cells[i] = glyphs[Math.floor(Math.random() * glyphs.length)]
-          alphas[i] = 0.05 + Math.random() * 0.45
+          alphas[i] = 0.1 + Math.random() * 0.45
         }
 
         draw()
