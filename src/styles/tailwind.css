@@ -4,9 +4,9 @@
 @tailwind utilities;
 @layer base {
   :root {
-      /* Clean Crisp Light Theme */
-      --background: 0 0% 99%; /* Clean bright white */
-      --foreground: 240 10% 8%; /* Deep crisp charcoal */
+      /* Clean Bluish-Gray Light Theme */
+      --background: 215 22% 91%; /* Soft cool bluish-gray (abu-abu kebiruan) */
+      --foreground: 222 47% 11%; /* Crisp deep charcoal-slate */
       
       --card: 0 0% 100%; /* Pure white cards */
       --card-foreground: 240 10% 8%;

@@ -11,9 +11,9 @@ export function AnimatedBackground() {
   const isDark = resolvedTheme !== "light";
 
   // Dark Mode: White glyphs + Red cursor spotlight
-  // Light Mode: Red glyphs on white background + Deep Crimson cursor spotlight
-  const glyphColor = isDark ? "#ffffff" : "#dc2626";
-  const spotlightColor = isDark ? "#ef4444" : "#7f1d1d";
+  // Light Mode: Black glyphs on bluish-gray background + Red cursor spotlight
+  const glyphColor = isDark ? "#ffffff" : "#000000";
+  const spotlightColor = isDark ? "#ef4444" : "#dc2626";
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
