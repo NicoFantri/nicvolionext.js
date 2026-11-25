@@ -9,7 +9,7 @@ export function AnimatedBackground() {
   const [isMobile, setIsMobile] = useState(false);
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme !== "light";
-  const glyphColor = isDark ? "#ffffff" : "#94a3b8";
+  const glyphColor = isDark ? "#ffffff" : "#334155";
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -67,8 +67,8 @@ export function AnimatedBackground() {
 
   return (
     <div ref={containerRef} className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-background">
-      {/* 1. GlyphMatrix — Primary Background Texture (subtle in Light Mode, crisp in Dark Mode) */}
-      <div className={isDark ? "absolute inset-0 opacity-[0.30]" : "absolute inset-0 opacity-[0.14]"}>
+      {/* 1. GlyphMatrix — Primary Background Texture (crisp in both Light Mode & Dark Mode) */}
+      <div className={isDark ? "absolute inset-0 opacity-[0.35]" : "absolute inset-0 opacity-[0.45]"}>
         <GlyphMatrix
           glyphs="01·•+*/\<>={}[]#@&%$!?~^_|;:ΣΩπλδ"
           cellSize={18}
@@ -82,7 +82,7 @@ export function AnimatedBackground() {
       {/* 2. Mouse Spotlight — Only active on desktop */}
       {!isMobile && (
         <div
-          className={isDark ? "absolute inset-0 opacity-100" : "absolute inset-0 opacity-70"}
+          className={isDark ? "absolute inset-0 opacity-100" : "absolute inset-0 opacity-90"}
           style={{
             maskImage: `radial-gradient(150px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 60%, transparent 100%)`,
             WebkitMaskImage: `radial-gradient(150px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 60%, transparent 100%)`,

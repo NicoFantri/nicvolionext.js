@@ -74,15 +74,13 @@ export default function Home() {
 
             {/* Image Right (X-Ray) */}
             <div className="w-full max-w-sm mx-auto lg:ml-auto lg:mr-8 relative order-2 lg:order-2 mt-8 lg:mt-0">
-              <div className="relative">
-                <XRayReveal 
-                  baseImage="/images/fotoA.png" 
-                  revealImage="/images/fotoB.png" 
-                  radius={120}
-                  enable3D={true}
-                  className="w-full rounded-none aspect-[4/5]"
-                />
-              </div>
+              <XRayReveal 
+                baseImage="/images/fotoA.png" 
+                revealImage="/images/fotoB.png" 
+                radius={120}
+                enable3D={true}
+                className="w-full aspect-[4/5] rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-md dark:shadow-none"
+              />
             </div>
             
           </section>
