@@ -51,9 +51,9 @@ export default function Home() {
                 </span>
               </div>
 
-              <div className="space-y-6 text-base sm:text-lg text-zinc-400 leading-relaxed mb-10 max-w-lg">
+              <div className="space-y-6 text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-10 max-w-lg">
                 <p>
-                  I am a passionate <strong className="text-zinc-200 font-semibold">Software Engineer</strong> and <strong className="text-zinc-200 font-semibold">Fullstack Developer</strong>, constantly exploring modern technologies and building impactful digital solutions.
+                  I am a passionate <strong className="text-zinc-900 dark:text-zinc-200 font-semibold">Software Engineer</strong> and <strong className="text-zinc-900 dark:text-zinc-200 font-semibold">Fullstack Developer</strong>, constantly exploring modern technologies and building impactful digital solutions.
                 </p>
                 <p>
                   {headline}
@@ -65,7 +65,7 @@ export default function Home() {
                 download="CV_Nico_Fantri_Mayharis.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-red-800 text-white px-8 py-3.5 text-sm font-semibold hover:bg-red-900 transition-colors"
+                className="inline-flex items-center gap-2 bg-red-700 hover:bg-red-800 text-white px-8 py-3.5 rounded-xl text-sm font-semibold transition-colors shadow-sm"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                 Download CV
@@ -183,7 +183,7 @@ export default function Home() {
             <div className="flex items-center justify-between mb-8">
               <div className="flex flex-col gap-2">
                 <h2 className="flex items-center gap-3 text-2xl font-bold tracking-tight text-foreground">
-                  <div className="p-2 bg-red-950 border border-red-800/40 rounded-lg text-red-400">
+                  <div className="p-2 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800/40 rounded-lg text-red-600 dark:text-red-400">
                     <Briefcase className="w-5 h-5" />
                   </div>
                   Experience
@@ -209,7 +209,7 @@ export default function Home() {
         <FadeIn delay={0.2}>
           <section className="mt-12 border-t border-muted pt-12 pb-12">
             <h2 className="text-2xl font-bold tracking-tight text-foreground mb-6">Contributions</h2>
-            <div className="bg-muted/30 rounded-2xl p-4 md:p-8 overflow-hidden">
+            <div className="bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 md:p-8 overflow-hidden shadow-sm dark:shadow-none">
               <GitHubSnake />
             </div>
           </section>

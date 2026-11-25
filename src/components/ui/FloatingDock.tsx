@@ -189,10 +189,7 @@ export function FloatingDock({
 
       {/* Mobile Bottom Navigation Bar */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-[100] pb-safe w-full max-w-full overflow-hidden">
-        {/* Gradient fade effect above the bar */}
-        <div className="absolute -top-6 left-0 right-0 h-6 bg-gradient-to-t from-background/80 to-transparent pointer-events-none" />
-        
-        <div className="w-full bg-background/90 backdrop-blur-xl border-t border-border/50 overflow-hidden">
+        <div className="w-full bg-white/95 dark:bg-zinc-950/95 border-t border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-lg dark:shadow-none">
           <div className="flex justify-around items-center px-2 py-1.5 w-full">
             {primaryItems.map((item) => {
               const Icon = iconMap[item.name] || HomeIcon

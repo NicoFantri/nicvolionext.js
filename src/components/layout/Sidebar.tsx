@@ -30,7 +30,7 @@ export function Sidebar() {
   const navLinks = footerItems;
 
   return (
-    <aside className="hidden lg:flex w-64 flex-col h-screen sticky top-0 border-r border-muted/50 bg-background/80 backdrop-blur-xl px-6 py-8 z-50 flex-shrink-0">
+    <aside className="hidden lg:flex w-64 flex-col h-screen sticky top-0 border-r border-zinc-200 dark:border-zinc-800/80 bg-white/95 dark:bg-zinc-950/95 px-6 py-8 z-50 flex-shrink-0">
       <div className="flex justify-between items-start w-full">
         <div className="flex flex-col items-start gap-5">
         <CoolMode options={{ particle: "https://cdn-icons-png.flaticon.com/512/2111/2111432.png", size: 30, speedUp: 10, speedHorz: 10, particleCount: 30 }}>

@@ -4,43 +4,43 @@
 @tailwind utilities;
 @layer base {
   :root {
-      /* 🌟 Premium Clean Light Theme 🌟 */
-      --background: 210 40% 98%; /* Soft cool off-white */
-      --foreground: 222 47% 11%; /* Deep navy/slate for crisp text */
+      /* Clean Minimalist Light Theme (Flat, Crisp, 60fps) */
+      --background: 0 0% 98%; /* Crisp clean off-white */
+      --foreground: 240 10% 8%; /* Deep crisp charcoal */
       
-      --card: 0 0% 100%; /* Pure white for contrast */
-      --card-foreground: 222 47% 11%;
+      --card: 0 0% 100%; /* Pure white cards */
+      --card-foreground: 240 10% 8%;
       
       --popover: 0 0% 100%;
-      --popover-foreground: 222 47% 11%;
+      --popover-foreground: 240 10% 8%;
       
-      /* Elegant Royal Blue / Indigo Primary */
-      --primary: 221 83% 53%; 
-      --primary-foreground: 210 40% 98%;
+      /* Crimson Red Primary matching brand */
+      --primary: 0 72% 46%; 
+      --primary-foreground: 0 0% 100%;
       
-      --secondary: 210 40% 96.1%;
-      --secondary-foreground: 222 47% 11%;
+      --secondary: 240 5% 94%;
+      --secondary-foreground: 240 10% 12%;
       
-      --muted: 210 40% 96.1%;
-      --muted-foreground: 215.4 16.3% 46.9%;
+      --muted: 240 5% 94%;
+      --muted-foreground: 240 4% 42%;
       
-      --accent: 210 40% 96.1%;
-      --accent-foreground: 222 47% 11%;
+      --accent: 0 72% 46%;
+      --accent-foreground: 0 0% 100%;
       
-      --destructive: 0 84.2% 60.2%;
-      --destructive-foreground: 210 40% 98%;
+      --destructive: 0 84.2% 55%;
+      --destructive-foreground: 0 0% 100%;
       
-      --border: 214.3 31.8% 91.4%;
-      --input: 214.3 31.8% 91.4%;
-      --ring: 221 83% 53%;
+      --border: 240 6% 90%;
+      --input: 240 6% 90%;
+      --ring: 0 72% 46%;
       
-      --radius: 1rem; /* Soft, friendly rounded corners */
+      --radius: 0.75rem;
       
-      --chart-1: 221 83% 53%;
-      --chart-2: 173 58% 39%;
-      --chart-3: 197 37% 24%;
-      --chart-4: 43 74% 66%;
-      --chart-5: 27 87% 67%;
+      --chart-1: 0 72% 46%;
+      --chart-2: 15 70% 45%;
+      --chart-3: 345 65% 40%;
+      --chart-4: 330 65% 45%;
+      --chart-5: 355 65% 45%;
   }
 
   .dark {
@@ -107,42 +107,10 @@
   }
 }
 
-/* Premium Light Mode Enhancements */
-:root:not(.dark) body {
-  /* Subtle, elegant mesh gradient background */
-  background-image: 
-    radial-gradient(at 0% 0%, hsla(210, 100%, 95%, 1) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, hsla(250, 100%, 95%, 1) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, hsla(190, 100%, 95%, 1) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, hsla(220, 100%, 95%, 1) 0px, transparent 50%);
-  background-attachment: fixed;
-}
-
-:root:not(.dark) .bg-card,
-:root:not(.dark) .bg-background {
-  /* Apple-style Glassmorphism */
-  background: rgba(255, 255, 255, 0.6) !important;
-  backdrop-filter: blur(20px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.6) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02) !important;
-}
-
-:root:not(.dark) .bg-muted\/30 {
-  background: rgba(255, 255, 255, 0.4) !important;
-  backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.8) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important;
-}
-
-:root:not(.dark) a:hover,
-:root:not(.dark) button:hover {
-  transform: translateY(-1px);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
+/* Clean Light Mode Selection */
 :root:not(.dark) ::selection {
-  background: rgba(37, 99, 235, 0.2);
-  color: #1e3a8a;
+  background: rgba(185, 28, 28, 0.15);
+  color: #991b1b;
 }
 
 /* Original Utility classes */

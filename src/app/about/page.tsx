@@ -53,12 +53,12 @@ export default function About() {
             
             <div className="w-12 h-1.5 bg-red-700 mt-6 mb-8" />
             
-            <div className="space-y-6 text-base sm:text-lg text-zinc-400 leading-relaxed mb-10 max-w-lg">
+            <div className="space-y-6 text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-10 max-w-lg">
               <p>
-                Hi, I'm Nico Fantri. I am a passionate <strong className="text-zinc-200 font-semibold">Software Engineer</strong> and <strong className="text-zinc-200 font-semibold">Fullstack Developer</strong>, dedicated to building reliable, high-performance digital products and scalable systems.
+                Hi, I'm Nico Fantri. I am a passionate <strong className="text-zinc-900 dark:text-zinc-200 font-semibold">Software Engineer</strong> and <strong className="text-zinc-900 dark:text-zinc-200 font-semibold">Fullstack Developer</strong>, dedicated to building reliable, high-performance digital products and scalable systems.
               </p>
               <p>
-                As an Informatics Engineering graduate from Universitas Muhammadiyah Malang, I have developed deep technical expertise in mobile and web ecosystems, with a primary focus on <strong className="text-zinc-200 font-semibold">Flutter</strong>, <strong className="text-zinc-200 font-semibold">Golang</strong>, and <strong className="text-zinc-200 font-semibold">Laravel</strong>.
+                As an Informatics Engineering graduate from Universitas Muhammadiyah Malang, I have developed deep technical expertise in mobile and web ecosystems, with a primary focus on <strong className="text-zinc-900 dark:text-zinc-200 font-semibold">Flutter</strong>, <strong className="text-zinc-900 dark:text-zinc-200 font-semibold">Golang</strong>, and <strong className="text-zinc-900 dark:text-zinc-200 font-semibold">Laravel</strong>.
               </p>
             </div>
             
@@ -67,7 +67,7 @@ export default function About() {
                 href="https://linkedin.com/in/nicofantri" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-red-800 text-white px-7 py-3.5 text-sm font-semibold hover:bg-red-700 rounded-xl transition-colors shadow-lg shadow-black/40"
+                className="inline-flex items-center gap-2 bg-red-700 hover:bg-red-800 text-white px-7 py-3.5 text-sm font-semibold rounded-xl transition-colors shadow-sm"
               >
                 <span>Connect with me</span>
                 <ExternalLink size={16} />
@@ -78,7 +78,7 @@ export default function About() {
                 download="CV_Nico_Fantri_Mayharis.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-zinc-800 text-zinc-200 hover:text-white px-6 py-3.5 text-sm font-medium border border-zinc-700 hover:bg-zinc-700 rounded-xl transition-colors"
+                className="inline-flex items-center gap-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 px-6 py-3.5 text-sm font-medium border border-zinc-200 dark:border-zinc-700 rounded-xl transition-colors"
               >
                 <span>Download CV</span>
               </a>
@@ -87,8 +87,7 @@ export default function About() {
 
           {/* Image Right */}
           <div className="w-full max-w-sm mx-auto lg:ml-auto lg:mr-8 relative order-2 lg:order-2 mt-8 lg:mt-0">
-            {/* Image Container */}
-            <div className="relative bg-zinc-950 shadow-2xl border border-zinc-800 rounded-2xl overflow-hidden">
+            <div className="relative bg-zinc-100 dark:bg-zinc-950 shadow-lg dark:shadow-2xl border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden">
               <XRayReveal 
                 baseImage="/images/fotoA.png" 
                 revealImage="/images/fotoB.png" 
@@ -101,25 +100,25 @@ export default function About() {
         </div>
       </FadeIn>
 
-      {/* ROW 2: Professional Top Skills Showcase (Follows Tech Stack, Flat & Clean, No Gradients) */}
+      {/* ROW 2: Professional Top Skills Showcase (Light & Dark Responsive, Flat & Clean, No Gradients) */}
       <FadeIn>
         <div className="flex flex-col gap-10">
           
           {/* Section Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-4 border-b border-zinc-800">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-4 border-b border-zinc-200 dark:border-zinc-800">
             <div className="max-w-2xl">
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
                 Top Skills
               </h2>
               <div className="w-12 h-1.5 bg-red-700 mt-4 mb-4" />
-              <p className="text-base text-zinc-400 leading-relaxed">
+              <p className="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
                 Keahlian teknis dan ekosistem teknologi utama yang saya gunakan dalam merancang, mengembangkan, dan menerapkan solusi perangkat lunak skala produksi.
               </p>
             </div>
 
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-red-500 hover:text-red-400 transition-colors shrink-0"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-red-600 dark:text-red-500 hover:text-red-700 dark:hover:text-red-400 transition-colors shrink-0"
             >
               <span>Explore Projects</span>
               <ArrowRight size={16} />
@@ -131,29 +130,29 @@ export default function About() {
             {skillCategories.map((category, idx) => (
               <div 
                 key={idx}
-                className="p-6 sm:p-7 rounded-xl border border-zinc-800 bg-zinc-900/60 hover:bg-zinc-900/90 transition-all duration-300 flex flex-col justify-between"
+                className="p-6 sm:p-7 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:bg-zinc-50 dark:hover:bg-zinc-900/90 shadow-sm dark:shadow-none transition-colors flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center gap-3.5 mb-4">
-                    <div className="w-11 h-11 bg-red-950 border border-red-800/40 text-red-400 rounded-lg flex items-center justify-center shrink-0">
+                    <div className="w-11 h-11 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800/40 text-red-600 dark:text-red-400 rounded-lg flex items-center justify-center shrink-0">
                       <category.icon size={22} />
                     </div>
-                    <h3 className="text-lg font-bold text-foreground">
+                    <h3 className="text-lg font-bold text-zinc-900 dark:text-foreground">
                       {category.title}
                     </h3>
                   </div>
 
-                  <p className="text-sm leading-relaxed text-zinc-400 mb-6">
+                  <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 mb-6">
                     {category.description}
                   </p>
                 </div>
 
                 {/* Skill Pills */}
-                <div className="flex flex-wrap gap-2 pt-2 border-t border-zinc-800/80">
+                <div className="flex flex-wrap gap-2 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
                   {category.skills.map((skill, sIdx) => (
                     <span 
                       key={sIdx}
-                      className="px-2.5 py-1 text-xs font-medium rounded-md bg-zinc-800 text-zinc-200 border border-zinc-700"
+                      className="px-2.5 py-1 text-xs font-medium rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-700"
                     >
                       {skill}
                     </span>
