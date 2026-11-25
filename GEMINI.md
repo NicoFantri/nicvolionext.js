@@ -1,7 +1,6 @@
 # Antigravity Rules & Project Context
 
 ## Deployment
-- **Deployment Method**: Proyek portofolio ini di-deploy secara permanen menggunakan **Vercel CLI** (`vercel --prod` / `npx vercel --prod`), BUKAN melalui GitHub auto-deploy.
+- **Deployment Method**: Proyek portofolio ini sekarang dialihkan menggunakan **GitHub Auto-Deploy** ke Vercel (setiap `git push origin main` akan otomatis men-deploy ke Vercel).
 - **Production Domain**: `https://nicode.site`
-- **Vercel Project**: `nicweb-dev`
-
+- **Fallback CLI**: Jika dibutuhkan deploy manual darurat, dapat menggunakan `npx vercel --prod`.

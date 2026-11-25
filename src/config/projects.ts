@@ -22,6 +22,14 @@ export type ProjectItemType = {
 export const projects: Array<ProjectItemType> = [
     // Video Showcase Projects
     {
+        name: 'Hotel 101 - Task & Request Management (Trello Style)',
+        description: 'Aplikasi mobile manajemen operasional dan request kamar hotel berbasis Flutter dengan workflow Kanban/Trello board, penugasan per divisi (HK, ENG, FO), sistem prioritas, dan tracking real-time.',
+        link: { href: '#', label: 'Hotel 101 Trello' },
+        logo: '/vidioproject/Hotel101Bali_Trello_Narasi_Subtitle.mp4',
+        category: ['Mobile Development', 'Flutter', 'Showcase'],
+        tags: ['Flutter', 'Hotel Management', 'Trello Kanban', 'Mobile App']
+    },
+    {
         name: 'Aplikasi Laporan Warga (Flutter)',
         description: 'Aplikasi mobile berbasis Flutter untuk pelaporan keluhan warga secara cepat, dilengkapi pelacakan status laporan dan penanganan aduan masyarakat.',
         link: { href: '#', label: 'Laporan Warga' },
