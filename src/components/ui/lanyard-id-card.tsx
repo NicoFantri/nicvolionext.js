@@ -5,6 +5,8 @@ import { motion, useMotionValue, useTransform, useMotionValueEvent } from "frame
 
 export function LanyardIDCard() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const leftFabricShadowRef = useRef<SVGPathElement>(null)
+  const rightFabricShadowRef = useRef<SVGPathElement>(null)
   const leftShadowRef = useRef<SVGPathElement>(null)
   const rightShadowRef = useRef<SVGPathElement>(null)
   const leftStrapRef = useRef<SVGPathElement>(null)
@@ -18,17 +20,18 @@ export function LanyardIDCard() {
   const y = useMotionValue(0)
   const rotate = useTransform(x, [-120, 0, 120], [16, 0, -16])
 
-  // Natural collar wrap anchors (400 x 500 SVG space)
-  const LEFT_ANCHOR_X = 148
-  const RIGHT_ANCHOR_X = 252
-  const ANCHOR_Y = 214
+  // Snug collar-hugging anchors (400 x 500 SVG space) down to lower suit cutoff
+  const LEFT_ANCHOR_X = 161
+  const RIGHT_ANCHOR_X = 239
+  const ANCHOR_Y = 226
   const REST_CLIP_X = 200
-  const REST_CLIP_Y = 334
+  const REST_CLIP_Y = 368
 
   const buildPaths = (cx: number, cy: number) => {
     const dx = cx - REST_CLIP_X
-    const leftPath = `M ${LEFT_ANCHOR_X} ${ANCHOR_Y} C 142 256, ${168 + dx * 0.45} ${298 + (cy - REST_CLIP_Y) * 0.45}, ${cx} ${cy}`
-    const rightPath = `M ${RIGHT_ANCHOR_X} ${ANCHOR_Y} C 258 256, ${232 + dx * 0.45} ${298 + (cy - REST_CLIP_Y) * 0.45}, ${cx} ${cy}`
+    const dy = cy - REST_CLIP_Y
+    const leftPath = `M ${LEFT_ANCHOR_X} ${ANCHOR_Y} C 164 274, ${182 + dx * 0.45} ${328 + dy * 0.45}, ${cx} ${cy}`
+    const rightPath = `M ${RIGHT_ANCHOR_X} ${ANCHOR_Y} C 236 274, ${218 + dx * 0.45} ${328 + dy * 0.45}, ${cx} ${cy}`
     return { leftPath, rightPath }
   }
 
@@ -45,6 +48,8 @@ export function LanyardIDCard() {
 
     const { leftPath, rightPath } = buildPaths(cx, cy)
 
+    leftFabricShadowRef.current?.setAttribute("d", leftPath)
+    rightFabricShadowRef.current?.setAttribute("d", rightPath)
     leftShadowRef.current?.setAttribute("d", leftPath)
     rightShadowRef.current?.setAttribute("d", rightPath)
     leftStrapRef.current?.setAttribute("d", leftPath)
@@ -72,11 +77,31 @@ export function LanyardIDCard() {
         viewBox="0 0 400 500"
         className="absolute inset-0 w-full h-full pointer-events-none overflow-visible"
         style={{
-          maskImage: "linear-gradient(to bottom, transparent 42%, black 47%)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 42%, black 47%)",
+          maskImage: "linear-gradient(to bottom, transparent 44%, black 48%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 44%, black 48%)",
         }}
         aria-hidden="true"
       >
+        {/* Subtle fabric contact shadow underneath straps */}
+        <g transform="translate(1.5, 2)">
+          <path
+            ref={leftFabricShadowRef}
+            d={initialPaths.leftPath}
+            fill="none"
+            stroke="rgba(0,0,0,0.45)"
+            strokeWidth="5.5"
+            strokeLinecap="butt"
+          />
+          <path
+            ref={rightFabricShadowRef}
+            d={initialPaths.rightPath}
+            fill="none"
+            stroke="rgba(0,0,0,0.45)"
+            strokeWidth="5.5"
+            strokeLinecap="butt"
+          />
+        </g>
+
         {/* Subtle outer strap shadow / trim */}
         <path
           ref={leftShadowRef}
@@ -114,8 +139,8 @@ export function LanyardIDCard() {
         />
       </svg>
 
-      {/* Miniature Interactive ID Card positioned at lower chest near tie */}
-      <div className="absolute left-1/2 top-[66.5%] -translate-x-1/2 pointer-events-none">
+      {/* Miniature Interactive ID Card aligned neatly down near suit bottom edge */}
+      <div className="absolute left-1/2 top-[73.5%] -translate-x-1/2 pointer-events-none">
         <motion.div
           style={{ x, y, rotate }}
           drag
