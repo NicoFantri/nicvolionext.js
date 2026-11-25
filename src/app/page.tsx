@@ -1,6 +1,7 @@
 import { Container } from '@/components/layout/Container'
 import { headline as defaultHeadline, introduction as defaultIntroduction, projectHeadLine, projectIntro, projects as staticProjects, careerList, techIcons, name as defaultName } from '@/config/infoConfig'
 import GitHubSnake from '@/components/home/GitHubSnake'
+import { CareerTimeline } from '@/components/home/Career'
 import { CustomIcon } from '@/components/shared/CustomIcon'
 import IconCloud from "@/components/ui/icon-cloud"
 import Link from 'next/link'
@@ -196,42 +197,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 gap-4">
-              {careerList.map((career, idx) => (
-                <div
-                  key={idx}
-                  className="group flex flex-col sm:flex-row gap-4 sm:items-start p-6 rounded-xl border border-zinc-800 bg-zinc-900/60 hover:bg-zinc-900/90 hover:border-zinc-700 transition-colors"
-                >
-                  <div className="flex h-12 w-12 flex-none items-center justify-center rounded-lg border border-red-800/40 bg-red-950 text-red-400">
-                    <CustomIcon name={career.logo} size={24} />
-                  </div>
-                  <div className="flex flex-col flex-auto gap-1">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                      <h3 className="text-lg font-bold text-foreground group-hover:text-red-500 transition-colors">
-                        {career.title}
-                      </h3>
-                      <span className="text-xs font-medium text-zinc-400 bg-zinc-800 px-2.5 py-1 rounded-md border border-zinc-700 w-fit">
-                        {career.start} - {career.end}{career.duration ? ` · ${career.duration}` : ''}
-                      </span>
-                    </div>
-                    <p className="text-sm font-medium text-zinc-200">
-                      {career.company}
-                      {career.type && <span className="font-normal text-zinc-400"> · {career.type}</span>}
-                    </p>
-                    {career.location && (
-                      <p className="text-xs text-zinc-400">
-                        {career.location}
-                      </p>
-                    )}
-                    {career.skills && (
-                      <div className="flex items-center gap-2 mt-2 text-xs font-medium text-zinc-300 bg-zinc-800/80 w-fit px-3 py-1 rounded-md border border-zinc-700/80">
-                        <span>💎</span> {career.skills}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
+            <CareerTimeline items={careerList} />
 
             <Link href="/experience" className="mt-6 sm:hidden text-sm font-medium text-muted-foreground hover:text-foreground flex items-center justify-center gap-1 transition-colors">
               View All Experience <ArrowRight size={16} />

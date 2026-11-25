@@ -13,13 +13,14 @@ interface SlideProps {
   slide: SlideData;
   index: number;
   current: number;
+  smoothPos: number;
   handleSlideClick: (index: number) => void;
   handlePreviousClick: () => void;
   handleNextClick: () => void;
   onBusyChange?: (index: number, busy: boolean) => void;
 }
 
-const Slide = ({ slide, index, current, handleSlideClick, handlePreviousClick, handleNextClick, onBusyChange }: SlideProps) => {
+const Slide = ({ slide, index, current, smoothPos, handleSlideClick, handlePreviousClick, handleNextClick, onBusyChange }: SlideProps) => {
   const slideRef = useRef<HTMLLIElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -97,19 +98,21 @@ const Slide = ({ slide, index, current, handleSlideClick, handlePreviousClick, h
 
   const { src, button, title, href } = slide;
   const isVideo = src.toLowerCase().endsWith('.mp4');
+  const dist = Math.min(Math.abs(smoothPos - index), 1);
+  const scale = 1 - 0.15 * dist;
+  const cardOpacity = 1 - 0.6 * dist;
 
   return (
     <div className="[perspective:1200px] [transform-style:preserve-3d]">
       <li
         ref={slideRef}
-        className="group flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out w-[72vw] sm:w-[315px] h-[128vw] sm:h-[560px] mx-[4vmin] sm:mx-[20px] z-10"
+        className="group flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 w-[72vw] sm:w-[315px] h-[128vw] sm:h-[560px] mx-[4vmin] sm:mx-[20px] z-10"
         onClick={() => handleSlideClick(index)}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{
-          transform: current !== index ? "scale(0.85)" : "scale(1)",
-          opacity: current !== index ? 0.4 : 1,
-          transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+          transform: `scale(${scale})`,
+          opacity: cardOpacity,
           transformOrigin: "center",
         }}
       >
@@ -264,13 +267,19 @@ interface CarouselProps {
 }
 
 export default function Carousel({ slides }: CarouselProps) {
-  const [current, setCurrent] = useState(0);
+  const [smoothPos, setSmoothPos] = useState(0);
   const [startX, setStartX] = useState<number | null>(null);
   const [isInView, setIsInView] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [busySlides, setBusySlides] = useState<Record<number, boolean>>({});
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const posRef = useRef(0);
+  const dirRef = useRef<1 | -1>(1);
+  const targetRef = useRef<number | null>(null);
+  const lastTimeRef = useRef<number | null>(null);
+
+  const current = Math.round(smoothPos);
   const isPausedByMedia = Object.values(busySlides).some(Boolean);
 
   const handleBusyChange = useCallback((index: number, busy: boolean) => {
@@ -279,6 +288,13 @@ export default function Carousel({ slides }: CarouselProps) {
       return { ...prev, [index]: busy };
     });
   }, []);
+
+  // Snap smoothly to active slide center when user plays or enlarges video
+  useEffect(() => {
+    if (isPausedByMedia) {
+      targetRef.current = Math.round(posRef.current);
+    }
+  }, [isPausedByMedia]);
 
   // Observe whether the carousel is scrolled into view
   useEffect(() => {
@@ -289,38 +305,92 @@ export default function Carousel({ slides }: CarouselProps) {
       ([entry]) => {
         setIsInView(entry.isIntersecting);
       },
-      { threshold: 0.25 }
+      { threshold: 0.2 }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  // Slowly auto-advance slides while scrolled into view and not interacting/playing video
+  // Continuous slow ping-pong auto-scroll when scrolled into view
   useEffect(() => {
-    if (!isInView || isHovered || isPausedByMedia || startX !== null || slides.length <= 1) {
-      return;
-    }
-    const timer = setTimeout(() => {
-      setCurrent((prev) => (prev + 1 >= slides.length ? 0 : prev + 1));
-    }, 2800);
+    if (slides.length <= 1) return;
 
-    return () => clearTimeout(timer);
-  }, [current, isInView, isHovered, isPausedByMedia, startX, slides.length]);
+    let rafId: number;
+    const maxIdx = slides.length - 1;
+    const speed = 0.25; // ~4 seconds per card smoothly, continuous glide
+
+    const tick = (now: number) => {
+      if (lastTimeRef.current === null) {
+        lastTimeRef.current = now;
+      }
+      const dt = Math.min((now - lastTimeRef.current) / 1000, 0.1);
+      lastTimeRef.current = now;
+
+      if (targetRef.current !== null) {
+        const diff = targetRef.current - posRef.current;
+        if (Math.abs(diff) < 0.002) {
+          posRef.current = targetRef.current;
+          targetRef.current = null;
+          setSmoothPos(posRef.current);
+        } else {
+          posRef.current += diff * Math.min(1, dt * 8);
+          setSmoothPos(posRef.current);
+        }
+      } else if (isInView && !isHovered && !isPausedByMedia && startX === null) {
+        posRef.current += dirRef.current * speed * dt;
+        if (posRef.current >= maxIdx) {
+          posRef.current = maxIdx;
+          dirRef.current = -1; // Reverse back when reaching the end
+        } else if (posRef.current <= 0) {
+          posRef.current = 0;
+          dirRef.current = 1; // Reverse forward when reaching the start
+        }
+        setSmoothPos(posRef.current);
+      }
+
+      rafId = requestAnimationFrame(tick);
+    };
+
+    rafId = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(rafId);
+      lastTimeRef.current = null;
+    };
+  }, [isInView, isHovered, isPausedByMedia, startX, slides.length]);
+
+  const goToSlide = (targetIdx: number) => {
+    const maxIdx = slides.length - 1;
+    const clamped = Math.max(0, Math.min(maxIdx, targetIdx));
+    dirRef.current = clamped >= posRef.current ? 1 : -1;
+    targetRef.current = clamped;
+  };
 
   const handlePreviousClick = () => {
-    const previous = current - 1;
-    setCurrent(previous < 0 ? slides.length - 1 : previous);
+    const base = targetRef.current !== null ? targetRef.current : Math.round(posRef.current);
+    const previous = base - 1;
+    if (previous < 0) {
+      dirRef.current = 1;
+      targetRef.current = slides.length - 1;
+    } else {
+      goToSlide(previous);
+    }
   };
 
   const handleNextClick = () => {
-    const next = current + 1;
-    setCurrent(next === slides.length ? 0 : next);
+    const base = targetRef.current !== null ? targetRef.current : Math.round(posRef.current);
+    const next = base + 1;
+    if (next >= slides.length) {
+      dirRef.current = -1;
+      targetRef.current = 0;
+    } else {
+      goToSlide(next);
+    }
   };
 
   const handleSlideClick = (index: number) => {
-    if (current !== index) {
-      setCurrent(index);
+    if (Math.round(posRef.current) !== index) {
+      goToSlide(index);
     }
   };
 
@@ -361,21 +431,24 @@ export default function Carousel({ slides }: CarouselProps) {
       ref={containerRef}
       className="relative w-[72vw] sm:w-[315px] h-[128vw] sm:h-[560px] mx-auto cursor-grab active:cursor-grabbing"
       aria-labelledby={`carousel-heading-${id}`}
-      onMouseEnter={() => setIsHovered(true)}
+      onPointerEnter={(e) => {
+        if (e.pointerType === 'mouse') setIsHovered(true);
+      }}
+      onPointerLeave={(e) => {
+        if (e.pointerType === 'mouse') setIsHovered(false);
+      }}
       onMouseDown={handleDragStart}
       onMouseUp={handleDragEnd}
       onMouseLeave={(e) => {
-        setIsHovered(false);
         if (startX !== null) handleDragEnd(e);
       }}
       onTouchStart={handleDragStart}
       onTouchEnd={handleDragEnd}
     >
       <ul
-        className="absolute flex mx-[-4vmin] sm:mx-[-20px] transition-transform ease-in-out"
+        className="absolute flex mx-[-4vmin] sm:mx-[-20px]"
         style={{
-          transform: `translateX(-${current * (100 / slides.length)}%)`,
-          transitionDuration: '1200ms',
+          transform: `translateX(-${smoothPos * (100 / slides.length)}%)`,
         }}
       >
         {slides.map((slide, index) => (
@@ -384,6 +457,7 @@ export default function Carousel({ slides }: CarouselProps) {
             slide={slide}
             index={index}
             current={current}
+            smoothPos={smoothPos}
             handleSlideClick={handleSlideClick}
             handlePreviousClick={handlePreviousClick}
             handleNextClick={handleNextClick}
