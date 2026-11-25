@@ -258,7 +258,7 @@ interface CarouselProps {
 }
 
 export default function Carousel({ slides }: CarouselProps) {
-  const [current, setCurrent] = useState(Math.floor(slides.length / 2));
+  const [current, setCurrent] = useState(0);
 
   const [startX, setStartX] = useState<number | null>(null);
 
