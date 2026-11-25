@@ -5,10 +5,10 @@ import { motion, useMotionValue, useTransform, useMotionValueEvent } from "frame
 
 export function LanyardIDCard() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const leftShadowRef = useRef<SVGPathElement>(null)
+  const rightShadowRef = useRef<SVGPathElement>(null)
   const leftStrapRef = useRef<SVGPathElement>(null)
   const rightStrapRef = useRef<SVGPathElement>(null)
-  const leftHighlightRef = useRef<SVGPathElement>(null)
-  const rightHighlightRef = useRef<SVGPathElement>(null)
   const didDragRef = useRef(false)
 
   const [isFlipped, setIsFlipped] = useState(false)
@@ -16,14 +16,21 @@ export function LanyardIDCard() {
 
   const x = useMotionValue(0)
   const y = useMotionValue(0)
-  const rotate = useTransform(x, [-80, 0, 80], [14, 0, -14])
+  const rotate = useTransform(x, [-70, 0, 70], [14, 0, -14])
 
-  // Aligned to the white shirt collar edges (400 x 500 SVG coordinate space)
-  const LEFT_ANCHOR_X = 168
-  const RIGHT_ANCHOR_X = 232
-  const ANCHOR_Y = 248
+  // Natural collar wrap anchors (400 x 500 SVG space)
+  const LEFT_ANCHOR_X = 149
+  const RIGHT_ANCHOR_X = 251
+  const ANCHOR_Y = 228
   const REST_CLIP_X = 200
-  const REST_CLIP_Y = 342
+  const REST_CLIP_Y = 334
+
+  const buildPaths = (cx: number, cy: number) => {
+    const dx = cx - REST_CLIP_X
+    const leftPath = `M ${LEFT_ANCHOR_X} ${ANCHOR_Y} C 143 262, ${168 + dx * 0.4} ${300 + (cy - REST_CLIP_Y) * 0.4}, ${cx} ${cy}`
+    const rightPath = `M ${RIGHT_ANCHOR_X} ${ANCHOR_Y} C 257 262, ${232 + dx * 0.4} ${300 + (cy - REST_CLIP_Y) * 0.4}, ${cx} ${cy}`
+    return { leftPath, rightPath }
+  }
 
   const updateStraps = () => {
     const el = containerRef.current
@@ -36,18 +43,12 @@ export function LanyardIDCard() {
     const cx = REST_CLIP_X + x.get() * scaleX
     const cy = REST_CLIP_Y + y.get() * scaleY
 
-    const leftCtrlX = (LEFT_ANCHOR_X + cx) / 2 - 2
-    const leftCtrlY = (ANCHOR_Y + cy) / 2 + 4
-    const rightCtrlX = (RIGHT_ANCHOR_X + cx) / 2 + 2
-    const rightCtrlY = (ANCHOR_Y + cy) / 2 + 4
+    const { leftPath, rightPath } = buildPaths(cx, cy)
 
-    const leftPath = `M ${LEFT_ANCHOR_X} ${ANCHOR_Y} Q ${leftCtrlX} ${leftCtrlY} ${cx} ${cy}`
-    const rightPath = `M ${RIGHT_ANCHOR_X} ${ANCHOR_Y} Q ${rightCtrlX} ${rightCtrlY} ${cx} ${cy}`
-
+    leftShadowRef.current?.setAttribute("d", leftPath)
+    rightShadowRef.current?.setAttribute("d", rightPath)
     leftStrapRef.current?.setAttribute("d", leftPath)
     rightStrapRef.current?.setAttribute("d", rightPath)
-    leftHighlightRef.current?.setAttribute("d", leftPath)
-    rightHighlightRef.current?.setAttribute("d", rightPath)
   }
 
   useMotionValueEvent(x, "change", updateStraps)
@@ -59,66 +60,70 @@ export function LanyardIDCard() {
     }
   }
 
+  const initialPaths = buildPaths(REST_CLIP_X, REST_CLIP_Y)
+
   return (
     <div
       ref={containerRef}
       className="absolute inset-0 pointer-events-none z-20 overflow-visible select-none"
     >
-      {/* Compact Lanyard Straps draped neatly along white collar down to lower chest near tie */}
+      {/* Natural Curved Lanyard Straps wrapping around suit collar down to lower chest */}
       <svg
         viewBox="0 0 400 500"
         className="absolute inset-0 w-full h-full pointer-events-none overflow-visible"
+        style={{
+          maskImage: "linear-gradient(to bottom, transparent 45%, black 49%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 45%, black 49%)",
+        }}
         aria-hidden="true"
       >
+        {/* Subtle outer strap shadow / trim */}
         <path
-          ref={leftStrapRef}
-          d={`M ${LEFT_ANCHOR_X} ${ANCHOR_Y} Q ${(LEFT_ANCHOR_X + REST_CLIP_X) / 2 - 2} ${(ANCHOR_Y + REST_CLIP_Y) / 2 + 4} ${REST_CLIP_X} ${REST_CLIP_Y}`}
+          ref={leftShadowRef}
+          d={initialPaths.leftPath}
           fill="none"
-          stroke="#991b1b"
-          strokeWidth="4.5"
-          strokeLinecap="round"
+          stroke="#450a0a"
+          strokeWidth="5.2"
+          strokeLinecap="butt"
         />
         <path
-          ref={leftHighlightRef}
-          d={`M ${LEFT_ANCHOR_X} ${ANCHOR_Y} Q ${(LEFT_ANCHOR_X + REST_CLIP_X) / 2 - 2} ${(ANCHOR_Y + REST_CLIP_Y) / 2 + 4} ${REST_CLIP_X} ${REST_CLIP_Y}`}
+          ref={rightShadowRef}
+          d={initialPaths.rightPath}
           fill="none"
-          stroke="#ef4444"
-          strokeWidth="1"
-          strokeDasharray="2 4"
-          strokeLinecap="round"
-          opacity="0.7"
+          stroke="#450a0a"
+          strokeWidth="5.2"
+          strokeLinecap="butt"
         />
 
+        {/* Matte crimson woven lanyard ribbon */}
         <path
-          ref={rightStrapRef}
-          d={`M ${RIGHT_ANCHOR_X} ${ANCHOR_Y} Q ${(RIGHT_ANCHOR_X + REST_CLIP_X) / 2 + 2} ${(ANCHOR_Y + REST_CLIP_Y) / 2 + 4} ${REST_CLIP_X} ${REST_CLIP_Y}`}
+          ref={leftStrapRef}
+          d={initialPaths.leftPath}
           fill="none"
           stroke="#991b1b"
-          strokeWidth="4.5"
-          strokeLinecap="round"
+          strokeWidth="3.6"
+          strokeLinecap="butt"
         />
         <path
-          ref={rightHighlightRef}
-          d={`M ${RIGHT_ANCHOR_X} ${ANCHOR_Y} Q ${(RIGHT_ANCHOR_X + REST_CLIP_X) / 2 + 2} ${(ANCHOR_Y + REST_CLIP_Y) / 2 + 4} ${REST_CLIP_X} ${REST_CLIP_Y}`}
+          ref={rightStrapRef}
+          d={initialPaths.rightPath}
           fill="none"
-          stroke="#ef4444"
-          strokeWidth="1"
-          strokeDasharray="2 4"
-          strokeLinecap="round"
-          opacity="0.7"
+          stroke="#991b1b"
+          strokeWidth="3.6"
+          strokeLinecap="butt"
         />
       </svg>
 
-      {/* Miniature Draggable & Pressable ID Card at lower chest near tie */}
-      <div className="absolute left-1/2 top-[68%] -translate-x-1/2 pointer-events-none">
+      {/* Miniature Interactive ID Card positioned at lower chest near tie */}
+      <div className="absolute left-1/2 top-[66.5%] -translate-x-1/2 pointer-events-none">
         <motion.div
           style={{ x, y, rotate }}
           drag
-          dragConstraints={{ left: -34, right: 34, top: -8, bottom: 16 }}
-          dragElastic={0.18}
+          dragConstraints={{ left: -30, right: 30, top: -8, bottom: 14 }}
+          dragElastic={0.16}
           dragSnapToOrigin
-          dragTransition={{ bounceStiffness: 280, bounceDamping: 16 }}
-          whileHover={{ scale: 1.05 }}
+          dragTransition={{ bounceStiffness: 290, bounceDamping: 16 }}
+          whileHover={{ scale: 1.06 }}
           whileTap={{ scale: 0.94 }}
           onPointerDown={(e) => {
             e.stopPropagation()
@@ -143,10 +148,10 @@ export function LanyardIDCard() {
           className="relative pointer-events-auto touch-none cursor-grab active:cursor-grabbing flex flex-col items-center"
           title="Tarik atau tekan ID Card"
         >
-          {/* Compact Metal Clip */}
+          {/* Slim Metallic Clasp */}
           <div className="flex flex-col items-center -mb-1 z-10">
-            <div className="w-3 h-2 rounded-sm bg-zinc-400 dark:bg-zinc-500 border border-zinc-600" />
-            <div className="w-2 h-2 bg-zinc-300 dark:bg-zinc-400 border border-zinc-600 rounded-b-sm" />
+            <div className="w-2.5 h-1.5 rounded-sm bg-zinc-400 dark:bg-zinc-500 border border-zinc-600" />
+            <div className="w-1.5 h-2 bg-zinc-300 dark:bg-zinc-400 border border-zinc-600 rounded-b-sm" />
           </div>
 
           {/* 3D Flip Miniature Card */}
@@ -155,35 +160,54 @@ export function LanyardIDCard() {
               animate={{ rotateY: isFlipped ? 180 : 0 }}
               transition={{ type: "spring", stiffness: 280, damping: 22 }}
               style={{ transformStyle: "preserve-3d" }}
-              className={`relative w-[78px] sm:w-[86px] h-[94px] sm:h-[102px] rounded-lg shadow-md transition-shadow ${
-                isPressed ? "shadow-lg ring-1 ring-red-600/70" : ""
+              className={`relative w-[68px] sm:w-[74px] h-[88px] sm:h-[96px] rounded-md shadow-lg transition-shadow ${
+                isPressed ? "shadow-xl ring-1 ring-red-600/70" : ""
               }`}
             >
               {/* FRONT SIDE */}
               <div
                 style={{ backfaceVisibility: "hidden" }}
-                className="absolute inset-0 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 overflow-hidden flex flex-col justify-between"
+                className="absolute inset-0 rounded-md bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 overflow-hidden flex flex-col justify-between"
               >
-                {/* Top Slot Header */}
-                <div className="bg-red-800 h-3.5 flex items-center justify-center shrink-0">
-                  <div className="w-4 h-1 rounded-full bg-black/40" />
+                {/* Top Slot Accent Header */}
+                <div className="bg-red-800 px-1.5 py-1 flex items-center justify-between shrink-0">
+                  <span className="text-[4.5px] sm:text-[5px] font-bold tracking-widest text-red-100">
+                    NICODE
+                  </span>
+                  <div className="w-2.5 h-0.5 rounded-full bg-black/40" />
+                  <span className="text-[4.5px] sm:text-[5px] font-mono text-red-200">
+                    DEV
+                  </span>
                 </div>
 
-                {/* Minimal Crisp Text */}
-                <div className="px-1.5 py-1.5 flex flex-col items-center justify-center text-center gap-0.5 flex-1">
-                  <p className="text-[9.5px] sm:text-[10.5px] font-extrabold text-zinc-900 dark:text-white leading-tight">
+                {/* Portrait & Identity */}
+                <div className="px-1 py-1 flex flex-col items-center justify-center text-center flex-1">
+                  <img
+                    src="/images/profil.jpeg"
+                    alt="Nico Fantri"
+                    className="w-6 h-6 sm:w-7 sm:h-7 rounded-full object-cover border border-red-700/70 shadow-sm mb-1"
+                  />
+                  <p className="text-[8px] sm:text-[8.5px] font-extrabold text-zinc-900 dark:text-white leading-none tracking-tight">
                     Nico Fantri
                   </p>
-                  <p className="text-[7.5px] sm:text-[8px] font-semibold text-red-700 dark:text-red-400 leading-tight">
+                  <p className="text-[5.5px] sm:text-[6px] font-semibold text-red-700 dark:text-red-400 leading-tight mt-0.5">
                     Software Engineer
                   </p>
+                </div>
 
-                  {/* Status Active Pill */}
-                  <div className="mt-1.5 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800/60">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-[7px] font-bold text-emerald-700 dark:text-emerald-300 leading-none">
+                {/* Bottom Status Bar */}
+                <div className="px-1.5 py-0.5 border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 flex items-center justify-between shrink-0">
+                  <div className="inline-flex items-center gap-0.5">
+                    <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-[5.5px] sm:text-[6px] font-bold text-emerald-700 dark:text-emerald-400 leading-none">
                       Active
                     </span>
+                  </div>
+                  <div className="flex items-center gap-[1px] h-1.5" aria-hidden="true">
+                    <span className="w-[1px] h-full bg-zinc-700 dark:bg-zinc-400" />
+                    <span className="w-[0.5px] h-full bg-zinc-400" />
+                    <span className="w-[1.5px] h-full bg-zinc-700 dark:bg-zinc-400" />
+                    <span className="w-[1px] h-full bg-zinc-700 dark:bg-zinc-400" />
                   </div>
                 </div>
               </div>
@@ -194,21 +218,26 @@ export function LanyardIDCard() {
                   backfaceVisibility: "hidden",
                   transform: "rotateY(180deg)",
                 }}
-                className="absolute inset-0 rounded-lg bg-zinc-900 dark:bg-zinc-950 text-white border border-zinc-700 overflow-hidden flex flex-col justify-between"
+                className="absolute inset-0 rounded-md bg-zinc-900 dark:bg-zinc-950 text-white border border-zinc-700 overflow-hidden flex flex-col justify-between"
               >
-                <div className="bg-red-800 h-3.5 flex items-center justify-center shrink-0">
-                  <div className="w-4 h-1 rounded-full bg-black/40" />
-                </div>
-
-                <div className="px-1.5 py-1 flex flex-col items-center justify-center gap-1 flex-1">
-                  <span className="text-[7px] font-mono font-bold tracking-wider text-zinc-300">
+                <div className="bg-red-800 py-1 flex items-center justify-center shrink-0">
+                  <span className="text-[5px] font-bold tracking-widest text-red-100">
                     NICODE.SITE
                   </span>
-                  <div className="p-1 bg-white rounded">
+                </div>
+
+                <div className="p-1 flex flex-col items-center justify-center flex-1">
+                  <div className="p-1 bg-white rounded-sm">
                     <svg viewBox="0 0 24 24" className="w-6 h-6 text-zinc-900" fill="currentColor">
                       <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm10-2h2v2h-2v-2zm4 0h2v2h-2v-2zm-2 2h2v2h-2v-2zm-2 2h2v2h-2v-2zm4 0h2v2h-2v-2zm-2 2h2v2h-2v-2zm2 0h2v2h-2v-2z" />
                     </svg>
                   </div>
+                </div>
+
+                <div className="px-1.5 py-0.5 bg-zinc-950 border-t border-zinc-800 text-center">
+                  <span className="text-[5px] text-zinc-400 font-mono">
+                    ID-2026
+                  </span>
                 </div>
               </div>
             </motion.div>
