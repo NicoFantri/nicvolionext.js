@@ -1,6 +1,6 @@
 "use client";
 import { IconArrowNarrowRight } from "@tabler/icons-react";
-import { useState, useRef, useId, useEffect } from "react";
+import { useState, useRef, useId, useEffect, useCallback } from "react";
 
 interface SlideData {
   title: string;
@@ -16,9 +16,10 @@ interface SlideProps {
   handleSlideClick: (index: number) => void;
   handlePreviousClick: () => void;
   handleNextClick: () => void;
+  onBusyChange?: (index: number, busy: boolean) => void;
 }
 
-const Slide = ({ slide, index, current, handleSlideClick, handlePreviousClick, handleNextClick }: SlideProps) => {
+const Slide = ({ slide, index, current, handleSlideClick, handlePreviousClick, handleNextClick, onBusyChange }: SlideProps) => {
   const slideRef = useRef<HTMLLIElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -58,6 +59,11 @@ const Slide = ({ slide, index, current, handleSlideClick, handlePreviousClick, h
       setIsPlaying(false);
     }
   }, [current, index]);
+
+  // Notify carousel when user is playing or enlarging video
+  useEffect(() => {
+    onBusyChange?.(index, isPlaying || isExpanded);
+  }, [index, isPlaying, isExpanded, onBusyChange]);
 
   const handleMouseMove = (event: React.MouseEvent) => {
     const el = slideRef.current;
@@ -259,8 +265,48 @@ interface CarouselProps {
 
 export default function Carousel({ slides }: CarouselProps) {
   const [current, setCurrent] = useState(0);
-
   const [startX, setStartX] = useState<number | null>(null);
+  const [isInView, setIsInView] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [busySlides, setBusySlides] = useState<Record<number, boolean>>({});
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const isPausedByMedia = Object.values(busySlides).some(Boolean);
+
+  const handleBusyChange = useCallback((index: number, busy: boolean) => {
+    setBusySlides((prev) => {
+      if (!!prev[index] === busy) return prev;
+      return { ...prev, [index]: busy };
+    });
+  }, []);
+
+  // Observe whether the carousel is scrolled into view
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Slowly auto-advance slides while scrolled into view and not interacting/playing video
+  useEffect(() => {
+    if (!isInView || isHovered || isPausedByMedia || startX !== null || slides.length <= 1) {
+      return;
+    }
+    const timer = setTimeout(() => {
+      setCurrent((prev) => (prev + 1 >= slides.length ? 0 : prev + 1));
+    }, 2800);
+
+    return () => clearTimeout(timer);
+  }, [current, isInView, isHovered, isPausedByMedia, startX, slides.length]);
 
   const handlePreviousClick = () => {
     const previous = current - 1;
@@ -312,20 +358,24 @@ export default function Carousel({ slides }: CarouselProps) {
 
   return (
     <div
+      ref={containerRef}
       className="relative w-[72vw] sm:w-[315px] h-[128vw] sm:h-[560px] mx-auto cursor-grab active:cursor-grabbing"
       aria-labelledby={`carousel-heading-${id}`}
+      onMouseEnter={() => setIsHovered(true)}
       onMouseDown={handleDragStart}
       onMouseUp={handleDragEnd}
       onMouseLeave={(e) => {
+        setIsHovered(false);
         if (startX !== null) handleDragEnd(e);
       }}
       onTouchStart={handleDragStart}
       onTouchEnd={handleDragEnd}
     >
       <ul
-        className="absolute flex mx-[-4vmin] sm:mx-[-20px] transition-transform duration-1000 ease-in-out"
+        className="absolute flex mx-[-4vmin] sm:mx-[-20px] transition-transform ease-in-out"
         style={{
           transform: `translateX(-${current * (100 / slides.length)}%)`,
+          transitionDuration: '1200ms',
         }}
       >
         {slides.map((slide, index) => (
@@ -337,6 +387,7 @@ export default function Carousel({ slides }: CarouselProps) {
             handleSlideClick={handleSlideClick}
             handlePreviousClick={handlePreviousClick}
             handleNextClick={handleNextClick}
+            onBusyChange={handleBusyChange}
           />
         ))}
       </ul>
