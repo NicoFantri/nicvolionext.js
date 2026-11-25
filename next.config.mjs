@@ -29,6 +29,18 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/cv',
+        destination: '/CV_Nico_Fantri_Mayharis.pdf',
+      },
+      {
+        source: '/cv.pdf',
+        destination: '/CV_Nico_Fantri_Mayharis.pdf',
+      },
+    ]
+  },
 }
 
 const withMDX = nextMDX({

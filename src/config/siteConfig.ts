@@ -32,10 +32,6 @@ export const footerItems: Array<NavItemType> = [
   {
     name: 'Jasa & Layanan',
     href: '/services'
-  },
-  {
-    name: 'Friends',
-    href: '/friends'
   }
 ]
 

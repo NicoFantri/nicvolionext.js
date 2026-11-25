@@ -12,34 +12,41 @@ import {
   Pill,
   WechatLogo,
   DiscordLogo,
-  TiktokLogo
+  TiktokLogo,
+  BuildingApartment,
+  Briefcase
 } from '@phosphor-icons/react'
 
 export function CustomIcon({ name, size = 20 }: { name: string; size?: number }) {
   switch (name) {
     case 'bank':
+    case 'bri':
       return <Bank size={size} weight="duotone" />;
+    case 'hotel':
+      return <BuildingApartment size={size} weight="duotone" />;
+    case 'freelance':
+      return <Briefcase size={size} weight="duotone" />;
     case 'github':
       return <GithubLogo size={size} weight="duotone" />;
     case 'x':
       return <XLogo size={size} weight="duotone" />;
     case 'instagram':
       return <InstagramLogo size={size} weight="duotone" />;
-    case "bsky":
-      return <Butterfly size={size} weight="duotone" />
+    case 'bsky':
+      return <Butterfly size={size} weight="duotone" />;
     case 'email':
       return <Envelope size={size} weight="duotone" />;
-    case "college":
+    case 'college':
       return <GraduationCap size={size} weight="duotone" />;
-    case "coffee":
+    case 'coffee':
       return <Coffee size={size} weight="duotone" />;
-    case "pill":
+    case 'pill':
       return <Pill size={size} weight="duotone" />;
-    case "wechat":
+    case 'wechat':
       return <WechatLogo size={size} weight="duotone" />;
-    case "discord":
+    case 'discord':
       return <DiscordLogo size={size} weight="duotone" />;
-    case "tiktok":
+    case 'tiktok':
       return <TiktokLogo size={size} weight="duotone" />;
     default:
       return null

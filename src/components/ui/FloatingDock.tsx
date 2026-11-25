@@ -17,7 +17,6 @@ const iconMap: Record<string, any> = {
   "About": UserIcon,
   "Projects": FolderIcon,
   "Experience": GraduationCap,
-  "Friends": UsersIcon,
   "Activity": ActivityIcon,
   "Pengaturan": SettingsIcon,
   "Jasa & Layanan": BriefcaseIcon,

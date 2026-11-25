@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
-import { HomeIcon, FolderIcon, UserIcon, BriefcaseIcon, GraduationCap, FileTextIcon, UsersIcon } from "lucide-react"
+import { HomeIcon, FolderIcon, UserIcon, BriefcaseIcon, GraduationCap, FileTextIcon } from "lucide-react"
 import { SealCheck } from '@phosphor-icons/react'
 
 import avatarImage from '@/images/avatar.jpg'
@@ -22,7 +22,6 @@ const iconMap: Record<string, any> = {
   "Experience": GraduationCap,
   "Artikel": FileTextIcon,
   "Jasa & Layanan": BriefcaseIcon,
-  "Friends": UsersIcon,
 }
 
 export function Sidebar() {

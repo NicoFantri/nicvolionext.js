@@ -7,16 +7,16 @@ export * from './activity';
 // personal info
 export const name = 'Nico';
 export const headline = 'Informatics Engineering Graduate from Universitas Muhammadiyah Malang.';
-export const introduction = "I'm a passionate software developer, highly enthusiastic about modern web technologies and building impactful digital solutions.";
+export const introduction = "I'm a passionate software developer, highly enthusiastic about modern technologies and building impactful digital solutions.";
 export const email = 'nicofantrimayharis@gmail.com';
 export const githubUsername = 'nicofantri';
 
 // about page
 export const aboutMeHeadline = "I'm Nico Fantri M, an Informatics Engineering Graduate from Universitas Muhammadiyah Malang.";
 export const aboutParagraphs = [
-  "I am passionate about programming and technology. I graduated with a degree in Informatics Engineering, building strong foundations in software engineering.",
-  "Besides studying, I also have many hobbies such as traveling, photography, watching movies, listening to music, and more.",
-  "Currently, I am focusing on improving my skills in software development and frequently working on side projects to gain experience."
+  "I am passionate about programming and modern technology. I graduated with a degree in Informatics Engineering, building strong foundations in software engineering, mobile development, and scalable backend architecture.",
+  "My core technical proficiencies include cross-platform mobile development with Flutter, backend engineering using Golang and Laravel, and modern web application development with React and Vue.js.",
+  "Currently, I am actively focusing on architecting and delivering high-performance digital products, robust APIs, and user-centric mobile solutions."
 ];
 
 // experience
@@ -56,26 +56,32 @@ export const socialLinks: Array<SocialLinkType> = [
 
 // https://simpleicons.org/
 export const techIcons = [
-  "typescript",
-  "javascript",
-  "python",
+  "flutter",
   "dart",
-  "java",
+  "go",
+  "laravel",
   "php",
+  "postgresql",
   "mysql",
   "react",
-  "nodedotjs",
   "nextdotjs",
+  "vuedotjs",
+  "typescript",
+  "javascript",
+  "nodedotjs",
+  "docker",
+  "supabase",
+  "firebase",
+  "redis",
   "tailwindcss",
-  "figma",
-  "laravel",
-  "vercel",
-  "debian",
   "git",
   "github",
-  "visualstudiocode",
   "androidstudio",
-  "firebase",
+  "visualstudiocode",
   "postman",
-  "flutter"
+  "figma",
+  "vercel",
+  "python",
+  "java",
+  "debian"
 ];
